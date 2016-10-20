@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮动实际例子</title>
+
+<!--
+    /* 标签潜逃规范， p标签里面不能嵌套块标签
+    */
+
+
+
+-->
+
+
+
+    <style>
+body,h2,ul{
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    list-style: none;
+    vertical-align: top;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+img{
+    border: none; vertical-align: top;
+}
+
+.clear:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.clear{
+    zoom: 1;
+}
+
+
+.warp{
+  width: 376px; margin: 30px auto; padding-top: 11px;
+
+}
+
+.header{
+  height: 25px;
+    background: url("../图片/headBg.gif") no-repeat;
+}
+
+.title{
+    line-height: 24px; background: url("../图片/titleBg.gif") no-repeat 9px 6px ;
+    font-size: 12px; text-indent : 33px;
+}
+
+.picList{
+    padding-top: 16px;
+}
+
+.picList li{
+    width: 91px;
+    padding-right: 17px;
+    margin: 0 8px;
+    float: left;
+    display: inline;
+}
+
+    </style>
+
+
+</head>
+<body>
+
+
+<div class="warp clear">
+   <div class="header">
+      <h2 class="title"> 华语谍报</h2>
+   </div>
+   <ul class="picList">
+      <li>
+          <a href="#"> <img src="../图片/pic.gif"> </a>
+          <strong>大叔</strong>
+      </li>
+       <li>
+          <a href="#"> <img src="../图片/pic.gif"> </a>
+          <strong>大叔</strong>
+      </li>
+       <li>
+          <a href="#"> <img src="../图片/pic.gif"> </a>
+          <strong>大叔</strong>
+      </li>
+   </ul>
+
+    <ul class="textList">
+        <li>
+            <a href="#">化妆，还是伪装？港三区美亚版《最强喜事》</a>
+        </li>
+        <li>
+            <a href="#">化妆，还是伪装？港三区美亚版《最强喜事》</a>
+        </li>
+        <li>
+            <a href="#">化妆，还是伪装？港三区美亚版《最强喜事》</a>
+        </li>
+    </ul>
+
+</div>
+
+
+</body>
+</html>

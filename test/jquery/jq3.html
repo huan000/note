@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq3高级</title>
+<!--
+   1. get(i下标)                 把jq转成原生的js   不写下标的时候就是原生的一组集合
+   2. text()                     只会获取到文本的内容  可以获取所有元素集合的文本内容
+   3. parents('body')            parent()获取父级
+                                 这个方法是获取所有的祖先节点的集合 ps:参数可以作为筛选的操作
+   4. closest('body')            获取最近的指定的祖先节点 ps:也包括当前元素的自身，必须有参数
+   5. siblings(‘’)               获取当前元素的所有兄弟节点  参数也是筛选功能
+   6. nestAll()  prevAll()       获取下面所有的兄弟节点的集合
+   7，parentsUntil('')           获取所有的父节点直到指定的节点
+      nextUntil('')              获取下面所有的兄弟节点直到指定节点
+      prevUntil('')              获取上面所有的兄弟节点直到指定节点
+   8. clone()                    克隆一个节点  执行复制的操作
+   9. wrap()                     单个包裹节点集合中的所有节点
+      wrapAll()                  把节点集合统一的包裹起来
+                                  ps: 如果其中有别的标签会被剪切出来
+      wrapInner()                内部包装： 在一个元素的里面进行包装
+      unwrap()                   删除包装： 删除父级但是不包含body
+   10.add()                      对一组节点进行添加组合的方法
+   11.slice(1,2)                 截取出一组元素中指定区间的元素
+   12.serialize()                对form表单的上传进行序列化  a=1&b=2&c=3
+   13.serializeArray()           对form表单的上传进行数组格式转化
+                                 [ {name:a,value:a},{name:b,value:b}]
+
+   jquery 中的运动
+   14.animate({},400,linear)     第一个参数： 是运动的目标点  传递方式是json
+                                 第二个参数   调节物体运动的快与慢
+                                 第三个参数:  只有两种运动形式
+                                              swing  慢快慢的形式
+                                             linear  匀速地运动形式
+                                 第四个参数： 回调函数  当运动结束的时候就会
+                                             走回调函数
+
+   15.stop(true，true)           默认只会阻止当前的运动
+                                 如果参数是true 阻止后续的所有运动
+                                 可以立即停止到指定的目标点
+
+   16.finish()                   立即停止到所有指定的目标点
+
+   17.delay(1000)                链式运动 停顿一下然后再走
+
+   18.父级.delegate('li','click',function(){})
+                                 通过父级给自己的子级加上事件
+      父级.undelegate()           取消事件委托
+
+   19.obj.trigger('click')       主动触发  在任意地方都可以触发身上的事件
+
+   20.obj.on('click',{name:a},function(){});
+      ev.data.name               a
+      ev.target                  返回事件源的元素
+      ev.type                    click 返回当前的事件
+
+
+
+-->
+
+
+<script src="jquery-1.9.0.min.js"></script>
+<style>
+
+
+</style>
+<script>
+$(function(){
+   document.getElementById('div1');
+
+
+
+})
+
+
+</script>
+
+</head>
+<body>
+
+<div id="div1"></div>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数的返回值和定时器</title>
+<!--
+  函数中的return
+   1. 函数名+括号 = return 后面的返回值
+   2. 所有函数的默认返回值都是：undefined
+   3. return 后面的代码都不执行了
+
+  实参和形参数
+   1. 可以定义实参不定义形参
+   2. 实参会存在arguments对象集合中，如果没有形参也可以访问
+   3. 当函数的参数个数无法确定的时候可以使用arguments 修改变量相当于修改 var 变量
+
+
+
+   ！！！！！！！！！************
+   js获取元素的样式
+   1.  obj.style.width   只能获取行间样式
+   2.  getComputedStyle(obj.width);    标准浏览器
+       obj.currentStyle.width          ie浏览器
+   3.  获取到的是计算机计算之后的符合样式要用单一写法
+       getStyle(obj,backgroundColor)；
+   4.  获取设置后的样式
+
+   封装函数：
+       getStyle(obj,attr){
+           if(obj.currentStyle){
+               return obj.currentStyle[attr];
+           }else{
+               getComputedStyle(obj)[attr];
+           }
+       }
+
+
+   重复执行定时器：
+       setInterval(function(){},毫秒);    重复执行
+       clearInterval(setInterval(function(){},毫秒));
+
+       ps:解决定时器的bug 先关闭掉定时器再打开定时器
+
+   单独定时器
+       setTimeout(function(){},毫秒);
+       clearTimeout(function(){},毫秒);
+
+
+
+-->
+
+
+
+
+<script>
+    window.onload = function(){
+
+
+
+
+
+
+    }
+
+
+
+</script>
+<style>
+  div{
+     width: 100px;
+      height: 100px;
+      background: cornsilk;
+  }
+
+
+</style>
+
+</head>
+<body>
+  <div id="div"></div>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表格相关操作</title>
+<!--
+   //表格相关操作
+   tHead ： 表格头
+   tBodies ： 表格正文
+   tFoot ： 表格尾部
+      rows ： 行
+      cells ： 列
+
+
+   //表单相关操作 表单元素事件
+     1. 直接通过name值获取元素
+         objform.name
+
+     2. onchange ： 当值发生改变的时候触发(当光标移开的时候如果值发生改变的时候触发)
+         /*
+            text : 当光标离开的时候如果内容发生改变就触发
+            radio ： 标准下点击的时候只要值变了就会触发   点的一瞬间
+                     非标准下是焦点离开的时候如果值变了就会触发  失去的瞬间
+            checkbox　：　触发时机一样
+            select :  值改变的时候就会触发，没有兼容性问题
+
+         */
+
+      3. checked ： 属性  ， radio/checkbox   判断当前是否别选中了  obj.checked
+
+
+    //表单的事件
+      1. onsubmit ：事件 当提交表单的时候触发
+      2. onreset ：当表单重置的时候触发事件
+      3. submit ： 自动提交表单 不一定要点按钮
+
+
+
+
+
+
+
+-->
+<script>
+   window.onload=function(){
+
+      var data = [
+          {id:1,username:'leo',sex:'男'},
+          {id:2,username:'xx',sex:'女'},
+          {id:3,username:'yy',sex:'男'},
+          {id:4,username:'zz',sex:'女'}
+      ];
+
+      //获取这个表格
+       var oTab = document.getElementById('tab1');
+       //找到tbody对象
+       var Tbody = oTab.tBodies[0];
+
+      //循环整个数据插入表格
+       for(var i=0; i<data.length; i++){
+           //循环一次创建一行出来
+           var tr = document.createElement('tr');
+           var td = document.createElement('td');
+           td.innerHTML = data[i].id;
+           tr.appendChild(td);
+
+
+
+           Tbody.appendChild(tr);
+
+       }
+
+
+   }
+
+
+
+</script>
+
+
+</head>
+<body>
+
+
+<table id="tab1" width="100%" border="1px">
+      <thead>
+         <tr>
+             <th>编号</th>
+             <th>姓名</th>
+             <th>性别</th>
+             <th>操作</th>
+         </tr>
+      </thead>
+
+       <tbody>
+
+       </tbody>
+</table>
+
+
+
+</body>
+</html>

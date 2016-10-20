@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>兼容性</title>
+    <!--
+        知识点：
+           1. 注释区别浏览器
+
+           2. 将一个元素显示为无：
+               2.1   display: none;    将这个元素撤销，显示为无
+               2.2   visibility:hidden;     将这个元素显示为隐藏
+               2.3   width:0; height:0      将这个元素的宽高隐藏掉
+               2.4   left值  和top值
+               2.5   拿一个白色的div盖住
+               2.6   margin值为负数
+
+
+
+
+
+              /*    1
+                ie6下子元素的宽高会撑开父级元素的宽高， 标准浏览器不会撑开父级的宽高
+                (也就是说ie6父级一定可以包含子级别)  (而普通浏览器只会溢出)
+                注意：  不要让内容的宽高超出父级的宽高
+              */
+
+
+              /*   ！！！！！ 2
+                在ie6下元素浮动，就给里面的块元素都加上浮动
+              */
+
+              /*    3
+                在ie6，7 要是元素要通过浮动并列在一行就把这一行的元素都加上浮动
+              */
+
+
+             /*    4
+                 在ie6下元素的高度小于19px的时候，会被当作19px来处理
+                 解决： overflow：hidden；
+
+              */
+
+             /*  5
+                 如果要使用dotted 要在2px; 以上  ie6有精度问题
+             */
+
+
+            /*  6  *******************************
+                 margin子级别会传递给父级别
+                  1.如果子级别或者父级别浮动了 float  ，则会取消传递
+                  2.父级加上overflow:hidden;  兼容ie:zoom：1
+                  3.父级如果有边框，则不传递，ie6下父级有边框子元素margin值消失了，加上zoom:1
+                  4.
+
+            */
+
+            /* 7.0
+                a标签的四个伪类只有在ie6和ie7下面才支持
+
+            */
+
+
+            /*  7
+                 inline-block 在ie6 ie7 下是不支持块标签的
+            */
+
+
+            /*  8
+                 ie6下如果块元素有浮动  则横向的margin值会有双倍
+                 解决办法： display：inline；
+            */
+
+            /*  9
+                 ie6,7 下  li本身没有浮动，但是里面的内容有浮动， li就会产生间隙
+                 解决办法： vertical-align:top;
+            */
+
+            /*  10
+                 如果ie6下 最小高度问题和 li的间隙问题共存的时候
+                 1.不行： overflow：hidden；   vertical-align：top；  这种方法还是会产生间隙
+                 2.可行： overflow: hidden；  float：left； width：xxxpx;
+            */
+
+            /* 11
+                 当一行子元素的宽度之和与父级别的宽度相差超过3px；或者有不满行状态的时候，最后一行
+                 子元素下面的margin在ie6下就会失效
+            */
+
+
+           /* 12
+                 ie6下面的文字溢出bug
+                 当子元素和父级的宽度小于3px的时候，两个浮动元素中间有注释或者内嵌元素
+                 解决办法：用div 吧注释或者内嵌元素包含起来  <div><span></span></div>
+           */
+
+           /* 13
+                 当浮动元素和相对定位元素是并列关系的时候，在ie6下相对定位元素会消失掉
+                 解决办法：  给相对定位元素外面套一层 div 这样他们就不是并列关系了
+           */
+
+           /* 14
+                 在ie6 ，ie7 下子元素有相对定位的话，子级溢出的情况下， 父级的overflow就包含不住子元素了
+                 （因为position：relative 提升了层级 但是overflow没有提升层级的作用）
+                 解决办法： 给父级别也增加相对定位
+           */
+
+           /* 15
+                 在ie6下，绝对定位元素的父级宽高是基数的时候，元素的right值和bottom值，会有
+                 1px的偏差
+           */
+
+           /* 16  透明度问题
+                标准浏览器：  opacity ：0.5；
+                ie浏览器：    filter: alpha(opacity=50);
+           */
+
+           /* 17  表格兼容性问题
+                ie下：如果tbody 和 tr 同时又background属性，那么tr会把tbody的背景属性覆盖掉
+           */
+
+           /*18   输入类型表单控件
+                ie6，ie7下面： 输入类型的表单控件上下各有1px的 间隙；
+                解决办法：是元素脱离文档流， 给元素加上浮动
+           */
+
+           /*19
+                在ie6，ie7 表单控件的属性加border：none； 无效
+                解决办法：  1.border：0；
+                           2.background：white;
+           */
+
+           /*20
+                在ie6，ie7 下面输入类型的表单控件，输入文字的时候，
+                背景图片会跟着文字一块移动
+                解决办法： 1.  一般吧背景图片添加给父级， 但是要求父级的大小跟
+                          子级别的大小一致
+                          2.  background：fixed；   （在ie7下会产生一些细小的错位）
+           */
+
+           /*21   其他兼容性问题
+                      1.  ie6下是不支持png类型的图片的
+                          解决方法：   借助js文件  DD_belatedPNG.js
+           */
+
+           /* 22  提升样式的优先级
+                   ！important
+                   兼容性问题： 在ie6下面，在important 后面加一条同样的样式
+                      会破坏掉！important 的作用
+           */
+
+           /*23   margin 为负值的时候兼容性问题
+                  当父级包含子级别的时候，如果子级别的margin是负数，那么父级别会缩小相应的像素
+                  在ie6下； 父级会截断子级相应的像素；
+                  解决方法： 给父级加上position：relative；
+
+           */
+
+
+
+
+
+   -->
+
+    <style>
+        body{margin:0;}
+        .box{
+            border:10px solid crimson;
+        }
+        .div1{
+            width:100px;
+            height: 100px;
+            margin-bottom: -50px;
+            margin-top:-30px;
+            background:cyan;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+<div class="box">
+    <div class="div1"></div>
+</div>
+
+
+
+
+</body>
+</html>

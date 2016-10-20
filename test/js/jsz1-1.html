@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dom子节点</title>
+<!--
+   DOM: 文档对象模型
+       文档： html页面
+       文档对象： 页面中元素
+
+   根据nodetype 判断类型
+   ELEMENT_NODE     1
+   ATTRIBUTE_NODE   2
+   TEXT_NODE        3
+   CDATA_SECTION    4
+
+
+
+   1.childNodes
+       元素.childNodes：属性 子节点列表集合  只读
+            标准下： 包含了文本和元素类型的节点，也会包含非法嵌套的子节点
+            非标准下：  ie8及其以下只包含文本节点，ie7及以下，不会包含非法嵌套子节点
+
+                只包含一级子节点，不包含孙级别的节点
+
+   2.children
+       元素.children: 属性  子节点列表的集合  只读
+            标准下： 只包含元素类型的节点，也会包含非法嵌套的节点
+            非标准下：  只包含元素节点，ie7及其以下，不会包含非法嵌套子节点
+
+
+   3.firstChild
+       元素.firstChild： 属性  第一个子节点  只读
+            标准下： firstChild会包含文本类型的节点
+            非标准下： firstChild只包含元素节点
+
+    firstElementChild
+       元素.firstElementChild:  属性  标准下获取第一个元素类型的子节点  只读   只有标准浏览器有
+        if(元素.firstElementChild){
+             obj.firstElementChild.style.background ='';
+        }else{
+             obj.firstChild.style.background = '';
+        }
+
+        隐性问题：
+        如果第一个子元素不存在的化，firseElementChild会返回null
+        可以用obj.children[0] 来代替
+
+
+   4.obj.lastChild
+        obj.lastElementChild    最后一个子节点  同上
+
+
+   5.obj.nestSibling
+        obj.nestElementSibling    下一个兄弟节点  同上
+
+
+   6.obj.previousSibling
+        obj.previousElementSibling   上一个兄弟节点
+
+
+
+   7.obj.parentNode  找到当前节点的父节点    没有兼容性问题
+
+   8.obj.offsetParent   离当前元素最近的有定位的父节点  只读
+         如果没有定位父级：
+         ie7以下： 如果当前元素没有定位默认是body ，如果有定位则是html
+         ie7以下： 如果当前元素某个父级触发了haslanout，就会被指向到
+         如果有定位父级，没有兼容性问题
+
+
+   9.obj.offsetLeft[top]
+         只读  属性  当前元素到定位父级的距离
+          如果没有定位父级：
+               offsetParent ：body  / ie7以下如果有定位则指向的是html
+               offsetLeft ： html
+
+          如果有定位父级
+          ie7以下： 如果自己没有定位，那么offsetLeft是到body的距离
+                    如果自己有定位，那么offsetLeft是到定位父级的距离
+          其他：  到定位父级的距离
+
+
+   10. /*
+     style.width :  样式宽    width
+     clientWidth ： 可视区宽  width+padding
+     offsetWidth ： 占位宽    width+padding+border
+   */
+
+   11. /*
+          function getElementsByClassName(parent,tagname,classname){
+           var aEls = parent.getElementsByTagName(tagname);
+           var arr = [];
+           for(var i=0; i<aEls.length; i++){
+                   var aClassName = aEls[i].className.split(' ');
+                   for(var j=0; j<aClassName.length; j++){
+                            if(aClassName[j] == classname){
+                                  arr.push( aEls[i] );
+                                break;       //找到一个之后跳出当前循环
+                            }
+                   }
+           }
+           return arr;
+      }
+   */
+
+
+   12.
+    /*
+         function addClass(obj,className){
+         //如果原来没有class
+          if(obj.className == ''){
+                obj.className == className;
+          }else{
+              //如果原来有class
+                  //如果要添加的class在原来的class中不存在
+                var arrClassName = obj.className.split(' ');
+                var _index = arrIndex(arrClassName,className);
+                if(_index == -1){
+                     //如果要添加的值不存在的话，如果存在可以不做任何操作
+                    obj.className += ' '+ className;
+                }
+          }
+     }
+
+      function arrIndex(arr,v){
+          for(var i=0; i<arr.length; i++){
+                  if(arr[i] == v){
+                      //找到了
+                      return i;
+                  }
+          }
+          //没有找到
+          return -1;
+      }
+
+
+      function removeClass(obj,classname){
+           if(obj.className !==''){
+                  //如果原来有class的话
+                var arrClassname = obj.className.split(' ');
+                var _index = arrIndex(arrClassname,classname);
+                //如果有要移除的class
+                if(_index!=-1){
+                     arrClassname.splice(_index,1);
+                     obj.className = arrClassname.join(' ');
+                }
+           }
+      }
+
+
+
+    */
+
+    13. 通过js动态的创建元素
+        document.createElement();
+
+        通过父级添加子元素,采用追加的方式
+        父级.appendChild();
+
+        在指定的元素前面插入一个新元素
+        父级.insertBefore(新的元素，被插入的元素);
+        兼容性： ie： 如果被插入的元素的节点不存在，会报错
+                 标准：如果被插入的元素的节点不存在，会以appendChild的形式进行插入
+        插入兼容性处理：   (第一次appendChild，以后insertBefore)
+            if(obj.children[0]){
+               oUl.insertBefore(oLi,obj.children[0]);
+            }else{
+               obj.appendChild(oLi);
+            }
+
+
+
+        通过父级动态的删除一个元素
+        父级.removeChild(要删除的元素);
+
+        通过被替换节点的父级 替换一个元素
+        父级.replaceChild(新节点，被替换的节点)；
+
+        /*
+         appendChild，insertBefore，replaceChild  都可以操作动态创建的节点，或者操作已有结点
+         都是类似于剪切的形式，原来节点不会再出现
+        */
+
+
+
+
+-->
+
+
+<script>
+  window.onload=function(){
+     var oText = document.getElementById('text1');
+     var oBtn = document.getElementById('btn');
+     var oUl = document.getElementById('ul1');
+     //按钮的点击事件
+      oBtn.onclick = function(){
+            //创建一个li元素
+          var oLi = document.createElement('li');
+            oLi.innerHTML = oText.value;
+          oUl.insertBefore(oLi,oUl.children[0]);
+
+
+      }
+
+
+  }
+</script>
+
+
+
+</head>
+<body>
+   <input type="text" id="text1"><input type="button" value="留言" id="btn">
+   <ul id="ul1">
+
+
+   </ul>
+
+
+
+
+
+</body>
+</html>

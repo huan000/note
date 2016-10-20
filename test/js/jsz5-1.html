@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cookie</title>
+    <!--
+        cookie： 存储数据
+         1. 不同浏览器存放的cookie位置不一样，也是不能通用的
+         2. cookie的存储是以域名的形式进行区分的
+         3. cookie的数据是可以设置名字的
+         4. chrome不可以操作本地的cookie
+         5. 我们通过document.cookie 获取的cookie值是一个字符串，包含了
+            当前域名下面所有的cookie值
+         6. 一个域名下存放的cookie的个数是有限制的，不同的浏览器存放的个数是不一样的
+         7. 每个cookie存放的内容的大小也是有限制的，不同浏览器的限制不一样
+         8. 如果想长时间存放一个cookie的话需要给cookie设置一个过期的时间
+            cookie默认是临时存储的，当浏览器进程结束的时候会自动销毁
+             document.cookie = '名称 = 值；expires = ' + 日期对象的字符串；
+
+
+
+         设置cookie
+         document.cookie = '名字 = 值'；
+         读取cookie
+         document.cookie = '名字'；
+
+
+
+         鼠标滚轮事件:
+           ie/chrome : onmousewheel
+           ff: DOMMouseScroll, 必须用addEventListener
+           兼容性写法
+           if(obj.addEventListener){
+                 obj.addEventListener('DOMMouseScroll',fn,false);
+           }
+           obj.onmousewheel;
+
+         鼠标滚轮事件
+           ie: event.wheelDelta
+               上：120；
+               下：-120；
+           ff: event.detail
+               上: -3;
+               下：3;
+           兼容性写法：
+               var b =true；
+               if(ev.wheelDelta){
+                    //现在是ie
+                    b = ev.wheelDelta > 0 ? true: false;
+               }else{
+                    b = ev.detail > 0 ? false : true ;
+               }
+
+
+
+
+
+    -->
+<style>
+    #div1{
+        width:100px;
+        height:100px;
+        background: cornsilk;
+    }
+
+</style>
+
+<script>
+    window.onload = function(){
+        var oDiv1 = document.getElementById('div1');
+        oDiv1.onmousewheel = function(){
+            alert(1);
+        }
+    }
+
+
+
+</script>
+
+</head>
+<body>
+
+<div id="div1"></div>
+
+
+
+</body>
+</html>

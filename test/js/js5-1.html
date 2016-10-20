@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数的传参</title>
+<!--
+   函数可以传参的类型有： 数字  字符串 布尔  函数  对象  未定义
+
+-->
+
+<style>
+  body{
+      background:cornsilk;
+  }
+  li{
+      list-style: none;
+  }
+  input{
+      width: 60px;
+      height: 30px;
+      background: #c1e1b9;
+      color:floralwhite;
+  }
+    em{
+        color: red;
+    }
+    span{
+        color: red;
+    }
+    
+
+</style>
+<script>
+  window.onload=function(){
+      var oUl = document.getElementById('list');
+      var aLi = oUl.getElementsByTagName('li');
+
+      for( var i=0; i<aLi.length; i++){
+           fn1(aLi[i]);
+      }
+
+
+
+      function fn1(aLi){
+         aBtn = aLi.getElementsByTagName('input');
+         oStrong = aLi.getElementsByTagName('strong')[0];
+         oEm = aLi.getElementsByTagName('em')[0];
+         oSpan = aLi.getElementsByTagName('span')[0];
+
+          var n1 = oStrong.innerHTML;   //'0'
+          var n2 = parseFloat(oEm.innerHTML);       //'12.5'
+          aBtn[0].onclick = function(){
+              n1++;
+              oStrong.innerHTML = n1;
+              oSpan.innerHTML = n1*n2 + '元';
+          };
+          aBtn[1].onclick = function(){
+              n1--;
+              if(n1<0){
+                n1 = 0;
+              }
+              oStrong.innerHTML = n1;
+              oSpan.innerHTML = n1*n2 + '元';
+          }
+      }
+
+
+
+
+
+  }
+
+
+</script>
+
+
+
+
+</head>
+<body>
+   <ul id="list">
+      <li>
+       <input type="button" value="+">
+       <strong>0</strong>
+       <input type="button" value="-">
+       单价：<em>12.5元</em>
+       小计：<span>0元</span>
+       </li>
+       <li>
+           <input type="button" value="+">
+           <strong> 0 </strong>
+           <input type="button" value="-">
+           单价：<em>8.5元</em>
+           小计：<span>0元</span>
+       </li>
+       <li>
+           <input type="button" value="+">
+           <strong> 0 </strong>
+           <input type="button" value="-">
+           单价：<em>15</em>
+           小计：<span>0元</span>
+       </li>
+   </ul>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+privilege 权限表   (无限极分类)
+ id  
+ pri_name       权限名称
+ module_name    模块名称	
+ action_name    方法名称
+ action_name    动作名称
+ parent_id      上级权限的名称
+
+
+
+
+role  角色表
+id        
+role_name       角色名称
+
+
+
+
+role_privilege  关联角色权限表
+id
+role_id
+pri_id
+
+
+admin          管理员表
+id
+name
+pass
+role_id        如果要是一个管理员可以属于多个角色的话 要建中间表
+
+
+
+select role a, privilege b, role_privilege c, where c.admin_id=3 and b.pri_id=a.id and b.role_id = c.role_id
+
+
+角色表的crud   增加角色时可以选择权限  角色列表可以显示该角色都有什么权限
+分组查询的时候使用group_concat()可以把一组的查询结果连起来
+
+权限表 如果选中子权限父级也选中   （把level值直接放在标签上）	
+$(':checkbox').click(function(){
+       //先取出当前权限的level值
+          var cur_level = $(this).attr("level");
+
+       //判断是选中还是取消
+         if($(this).attr("checked")){
+               //设置一个临时的level值
+                 var tmplevel = cur_level;
+               //代表是选中
+               //先取出这个复选框前面所有的复选框
+                 var allprev = $(this).prevAll(":checkbox");  
+               //循环每一个复选框判断是不是上级 
+                 $(allprev).each(function(k,v){
+                       //判断是不是上级的权限
+                          if($(v).attr("level")<templevel){
+                               templevel--;
+                               $(v).attr("checked","checked");
+                          }                                                   
+                    
+ 
+               });         
+ 
+         }else{
+
+
+         }
+
+
+
+
+
+
+
+});
+
+这是第一次修改 111
+
+
+
+
+
+
+
+
+
+

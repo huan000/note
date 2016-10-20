@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>c1</title>
+<!--
+   1.transition:1s;       //一个元素变到hover状态的时间      兼容性：ie9以下不支持
+
+   2. 属性选择器    兼容性：ie7 以下不支持
+   p[attr]{background:red;}    标签指定属性名选择器
+   p[attr='value']{}           标签指定属性名和属性值
+   p[attr~='value']            属性词列表中的一个属性，词列表用空格分割
+   p[attr^='value']            标签指定属性名和属性值，属性值是用value开始的
+   p[attr$='value']            标签指定属性名和属性值，属性值是用value结尾的
+   p[attr*='value']            标签指定属性名和属性值，属性值包含了value
+
+  3. 结构性伪类
+   p:nth-child(odd|even|1|2n)     p标签的父级下面的奇数行，偶数行，第一行，2的倍数，这个元素必须是p
+   p:nth-last-child(){}           标签同上，只不过是从后往前数
+   p:nth-of-type(2){}             找到父级下面第二个p标签，不考虑别的标签
+   p:nth-last-of-type(2){}        这个标签是从后往前找
+   p:first-child{}                相当于p:nth-child(1);
+   p:last-child{}                 相当于p:nth-last-child(1)
+   p:first-of-type{}              相当于p:nth-of-type(1)
+   p:last-of-type{}               相当于p:nth-last-of-type(1)
+   p:empty                        表示E元素中没有子节点。注意：子节点包含文本节点
+   p:only-child                   表示p元素中只有一个子节点
+   p:only-of-type                 表示p的父元素中只有一个子节点，且这个唯一的子节点类型必须是p
+
+
+   4：伪类和伪元素
+   div:target{}                   代表a标签设置锚点#div的这个元素
+   p~h1{}                         找到p标签后面的所有指定兄弟标签
+   p:first-line{}                 p标签中的第一行文本
+   p:first-letter{}               p标签中的第一个字 (改变了这个字的样式之后这个字就选不中了)
+   p:not(.p1){}                   排除掉class为p1的
+   p::before{content:'xx'}       往最前边和最末尾添加东西
+   p::after{content:'xx'}        往最后边添加东西
+   p::selection{}                 文字选中时候的样式
+   input:enable{}                 可以编辑的表单控件
+   input:disable{}                不可以编辑的表单控件
+   input:checked{}                已经选中的复选框
+
+   5:
+   rgba(0,0,0,0.5)                新增颜色模式，最后一个参数代表透明度
+   text-shadow:5px 0 10px red;    文字阴影效果： x轴偏移量  y轴偏移量  模糊的程度  颜色
+   -webkit-text-stroke: 宽度 颜色；      只有webkit内核的浏览器才支持
+   direction:rtl|ltl;  unicode-bidi:bidi-override;        文字反转
+   white-space：nowrap；                 强制文本超出之后不换行
+   overflow:hidden;                      文字超出之后进行隐藏
+   text-overflow：clip|ellipsis          文字超出之后是否显示省略号(配合上面两条一起使用)
+
+
+
+-->
+
+<style>
+    .box{
+        width: 100px;
+        height: 100px;
+        background: crimson;
+    }
+    .box:hover{
+        width: 200px;
+        height: 200px;
+        background: blue;
+    }
+
+</style>
+
+
+</head>
+<body>
+
+ <div class="box"></div>
+
+
+
+
+
+
+</body>
+</html>

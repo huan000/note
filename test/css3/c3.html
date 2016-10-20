@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--
+       新增ui样式1
+       border-radius：20px 40px 50%；
+       //圆角半径  参数1 左上角和右下角    参数2剩余的两个角
+
+       边框背景
+       border-image：url() 0 0  round|repeat|stretch;
+       //参数1 代表背景图片的路径  参数2 代表横向切割图片的的像素  参数3 代表纵向切割图片的像素
+       //参数4 平铺   重复   拉伸
+       border-width:20px;
+       //边框背景的宽度
+
+       多边框颜色
+       moz-border-left-colors： 各种颜色；    只有在火狐下面实现了
+
+       渐变背景(-image)
+       background：-webkit-linear-gradient(60deg,red 0; blue 50%);
+       background: -webkit-repeating-linear-gradient(...);   //重复平铺的渐变颜色
+
+
+       镜像渐变背景
+       background:-webkit-radial-gradient(100px 50px,circel,red,blue);
+       //参数2：可以设置椭圆的或者是圆的：ellipse，circle || 还可以设置成半径 100px 20px
+
+       背景尺寸
+       background-size:100px 200px;
+       //参数可选 ： cover  等比放大只有元素会超出||  contain  刚好可以把整个元素填满
+       //(支持设置多张图片)
+
+       背景图片原点设置：
+       background-origin ：border-box | padding-box(默认) | content；
+       //参数可选： 从border区域开始显示 | 从padding区域开始显示 | 从content区域开始显示
+
+       背景图片的裁切
+       background-clip ： border | padding| content| no-clip
+       //参数：从border区域向外裁剪  等等
+       -webkit-background-clip:text;  (只针对文字显示背景)
+
+
+       遮罩
+       -webkit-mask：url('遮罩图片') no-repeat x y;
+
+
+
+
+
+
+
+
+
+
+
+    -->
+
+
+
+
+<style>
+body{
+    background: black;
+    text-align: center;
+    font:100px "微软雅黑";
+}
+
+h1{
+
+    display:inline-block;
+    border:2px solid wheat;
+    color: rgba(255, 255, 255, 0.2);
+    background:-webkit-linear-gradient(-30deg,rgba(255,255,255,0) 100px, rgba(255,255,255,1) 140px,
+    rgba(255,255,255,1) 180px,rgba(255,255,255,0) 220px
+    ) no-repeat -300px;
+    -webkit-background-clip: text;
+    transition:1s;
+}
+
+h1:hover{
+    background-position: 1000px;
+}
+
+</style>
+
+</head>
+<body>
+
+   <h1>iphone</h1>
+
+
+
+</body>
+</html>

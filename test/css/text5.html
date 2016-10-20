@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>清除浮动问题的深入</title>
+
+
+
+    <!--
+     /* ie6 下双边距bug （margin）
+        在ie6下  如果块元素有浮动 和 横向的margin值，则margin值会被放大至两倍
+        解决办法 ： display ： inline ；
+     */
+
+    /*  ie6 ,  ie7下面几px间隙的问题
+        在ie6 ， ie7下面 li 本身没有浮动， 但是内容浮动了li就会多出来几px间隙的问题
+        解决办法 ：  1.给li加浮动，必须设定width值
+                    2. vertical-align :top;
+
+       当ie6下最小高度问题和li 几像素间隙问题共存的时候，给li加浮动
+
+    */
+
+
+    /* vertical-align:top;   （对齐的元素都要加这个属性）
+       控制元素的对齐方式（如果元素浮动则该属性不起作用，因为浮动元素默认顶部对齐）
+    */
+
+    /* 图片下面几像素空隙的问题
+       解决：   增加属性 vertical-align: top
+    */
+
+    /*
+       ie6下面最小高度问题：
+       在ie6下面高度小于19px的元素，高度会被当作19px来处理
+       1. 加上font-size：0；   只能最小控制到2px
+       2. 加上overflow：hidden；    也就是说超出最小高度的部分全都截取掉了
+    */
+
+
+
+
+
+
+
+
+
+
+    -->
+
+
+
+<style>
+
+
+#div{
+    border: 10px solid black;
+
+}
+    img{
+        border: 5px dotted cyan;
+        vertical-align: top;
+    }
+
+</style>
+
+</head>
+<body>
+
+
+    <div id="div">
+       <img src="../图片/index.jpg">
+        </div>
+
+
+
+</body>
+</html>

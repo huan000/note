@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!--
+     0. eq(1)  找到一组元素中的第2个
+        index();    当前元素在所有兄弟结点中的位置
+
+
+     1. html() 的取值和赋值
+        obj.html('123');  赋值  当obj是一组元素的集合的时候，赋值是一组中的所有
+        obj.html();       取值  当obj是一组元素的集合的时候，取值是一组中的第一个
+
+     2. attr() 的取值和赋值
+        obj.attr('title');   获取title属性
+        obj.attr('title','title1')   两个参数的时候为设置
+
+     3. filter();   过滤一组元素 (针对当前元素)
+        not();
+              不过滤的元素 (针对当前元素)
+
+        find();     过滤一个的子元素 (针对当前元素子元素)
+
+        has('span');      一组元素中包含该元素的  (针对当前元素里面的元素)
+
+     4. next();           选择下一个兄弟节点
+        prev();           选择上一个兄弟节点
+
+     5. addClass();       添加样式
+        removeClass();    移除样式
+
+     6. width();           //width
+        height();
+        innerWidth();      //width + padding
+        innerHeight();
+        outerWidth(true);      //widht + padding + border
+        outerHeight();           如果有true的时候 width+padding+border+margin
+
+
+     7. obj.insertBefore(obj);    把一个元素添加到一个目标元素的前面  剪切的功能
+        obj.before(obj);          一个元素的前面必须是另一个目标元素
+        obj.insertAfter(obj);     把一个元素添加到一个目标元素的后面  （原生中没有）
+        obj.after(obj);           一个元素的后面必须是另外一个元素
+        obj.appendTo(obj);        吧一个元素添加到一个目标元素的里面的最后面
+        obj.append(obj);          一个元素的里面的最后必须是另外一个元素
+        obj.prependTo(obj);       把一个元素添加到一个目标元素的里面的最前面 (原生中没有)
+        obj.prepend(obj);         一个元素里面的之前必须是另外一个元素
+
+     8. var obj = obj.remove();          删除该节点   删除后的返回值就是当前这个元素
+        obj.detach();             删除该节点    但是删除之后会保留这个元素之前的所有操作行为
+
+
+
+
+
+
+
+    -->
+
+
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #box div{
+            width: 200px;
+            height: 200px;
+            border:1px solid black;
+            display: none;
+        }
+        .active{ background:red; }
+
+
+
+
+    </style>
+    <script src="jquery-1.9.0.min.js"></script>
+
+    <script>
+        $(function(){
+        /*    var oBox = document.getElementById('box');
+            var aBtn = oBox.getElementsByTagName('input');
+            var aDiv = oBox.getElementsByTagName('div');
+
+            //循环所有的按钮
+            for(var i=0; i<aBtn.length; i++){
+                //给每一个按钮添加index
+                aBtn[i].index = i;
+
+                aBtn[i].onclick = function(){
+                    //点击的时候先清空所有的按钮
+                    for(var i=0; i<aBtn.length;i++){
+                          aBtn[i].className = '';
+                          aDiv[i].style.display = 'none';
+                    }
+                    this.className = 'active';
+                    aDiv[this.index].style.display = 'block ';
+                }
+            }*/
+
+
+            $('#box').find('input').click(function(){
+                      //点击的时候所有的按钮class都清空
+                      $('#box').find('input').attr('class','');
+                      //点击的时候让所有的内容都隐藏起来
+                      $('#box').find('div').css('display','none');
+                      //把当前按钮样式加上
+                      $(this).attr('class','active');
+                      //把当前div显示出来
+                      $('#box').find('div').eq($(this).index()).css('display','block');
+
+
+            });
+
+
+
+
+        });
+    </script>
+
+
+</head>
+<body>
+
+<div id="box">
+     <input type="button" value="1" class=" active">
+     <input type="button" value="2">
+     <input type="button" value="3">
+     <div style="display:block;">1111</div>
+     <div>2222</div>
+     <div>3333</div>
+</div>
+
+
+</body>
+</html>

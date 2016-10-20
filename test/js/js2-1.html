@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>for循环的应用</title>
+
+
+    <!--
+      /*  js的动态类型选择符号
+                obj = 对象.getElementsByTagName('');
+                obj元素的个数   obj.length
+      */
+
+      /*  for循环套用for循环的时候 不能使用相同的变量
+             for(var i=0; i<10; i++){
+                 for(var j=0; j<10; j++){}
+             }
+      */
+
+      /*  js操作css
+             style.属性  这个是操作元素的行间样式， 做的是追加操作
+             style.cssText = '';   这个是操作元素的行间样式，  做的是替换操作
+      */
+
+      /*  按钮只能点击一次
+          (找按钮麻烦)1.oBtn.disable= true;
+                     2.oBtn.style.display = 'none';
+          (先清空在生成)
+          (进行判断)  设定开关
+
+      */
+
+
+
+
+    -->
+
+
+<style>
+
+
+</style>
+
+<script>
+   window.onload = function(){
+      var arr = ['新闻1','新闻2','新闻3','新闻4','新闻5'];
+      var oUl = document.getElementById('list');
+      var oBtn1 = document.getElementById('btn1');
+       oBtn1.onclick = function(){
+           oUl.innerHTML = '';
+              for(var i=0; i<arr.length; i++){
+                   oUl.innerHTML += '<li>'+ arr[i] +'</li>';
+              }
+
+       }
+
+
+
+   }
+
+</script>
+
+
+</head>
+<body>
+   <input id="btn1" type="button" value="自动生成5条新闻">
+   <ul id="list">
+   </ul>
+
+
+</body>
+</html>

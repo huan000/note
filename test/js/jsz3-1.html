@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件</title>
+    <!--
+      事件：
+      1.可以通过一些方式设置焦点
+         1. 点击
+         2. tab
+         3. js
+
+      焦点事件：
+      obj.onfocus = function(){}
+      obj.onblur = function(){}
+
+      设置焦点的方法：
+      obj.focus();         //给一个元素设置焦点
+      obj.blur():          //使一个元素失去焦点
+      obj.select();        //全选一个元素里面的内容
+
+
+      event事件对象：
+      当一个事件发生，和当这个对象发生的这个事件有关的一些详细的信息都会被临时
+      保存到一个指定的地方 event对象
+      ie/chrome: event 是一个内置的全局的对象，就像window对象一样
+      标准浏览器： 事件对象是通过事件函数的第一个参数传入的
+
+      event事件对象必须要在事件调用中使用
+
+      兼容性解决：
+      document.onclick = function(ev){
+            var ev = ev||event；    //获取event事件对象
+      }
+
+      事件对象的属性：
+       ev.clientX          鼠标距离页面可视区x轴的距离
+       ev.clientY          鼠标距离页面可视区y轴的距离
+          ps:  距离页面顶部的距离
+               var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+               scrollRop+ev.clientY
+
+       ev.KeyCode          按下键的code值
+       ev.ctrlKey          功能键ctrl     是bool值
+       ev.shiftKey         功能键shift    是bool值
+       ev.altKey           功能键alt      是bool值
+
+
+
+
+       call()方法：
+       函数名.call(参数1，参数2);         //调用该函数
+              call方法的第一个参数可以改变函数执行过程中内部this的指向
+              call方法从第二个参数开始就是原来函数的参数列表
+
+
+      事件流：
+         事件冒泡：
+               当一个元素接收到一个事件以后，会把他的事件传播给他的父级
+               一直到顶层的window
+             阻止事件冒泡：
+               event.cancelBubble = true;
+
+             事件绑定的第二种形式：
+                 为了给一个元素的同一个事件绑定多个不同的事件
+                 兼容性：
+                  ie: obj.attachEvent(事件名称，function(){
+                      fn1.call(obj);
+                  });
+                      1.没有捕获
+                      2.事件名称有 on
+                      3.事件函数执行顺序：标准ie顺序  非标准ie下倒叙
+                      4.this指向的是window
+
+                  标准：obj.addEventListener(事件名称，事件函数，是否捕获);  默认是不捕获
+                      1.有捕获
+                      2.事件名称没有on
+                      3.函数的执行顺序是正序的
+                      4.this指向obj
+
+                  兼容性处理：
+                      function bind(obj,evname,fn){
+                            if(obj.addEventListener){
+                                obj.addEventListener(evname,fn,false);
+                            }else{
+                                obj.attachEvent('on'+evname,function(){
+                                    fn.call(obj);
+                                });
+                            }
+                      }
+
+
+        取消事件的绑定：
+            ie:  obj.detachEvent(事件名称，事件函数)；
+            标准：  obj.removeEventListener(事件名称，事件函数，是否捕获);
+
+
+        键盘事件：
+            onkeydown： 当键盘按键按下的时候触发
+            onkeyup：   当键盘按键抬起的时候触发
+            只有可以接收焦点的元素可以接收键盘事件。document对象也可以接收键盘事件
+
+
+        事件的默认行为：
+             当前这个行为是什么事件触发的，然后在这个事件的处理函数中使用
+             return false；
+
+             return false阻止的是普通事件绑定的默认行为；
+             如果是使用的 addEventListener（）；绑定的事件
+             使用 ev.preventDefault(); 阻止
+             兼容性写法：
+              if(ev.preventDefault){
+                   ev.preventDefault();
+              }
+
+
+             1.环境菜单事件
+             document.oncontextmenu = function(){
+                   return false;
+             }
+
+
+
+
+
+   -->
+
+
+<style>
+
+#div1{
+  width:100px;
+    height: 300px;
+    border:1px solid red;
+    position: absolute;
+    display: none;
+}
+
+
+
+</style>
+<script>
+  window.onload = function(){
+     var oDiv1 = document.getElementById('div1');
+     document.oncontextmenu = function(ev){
+             var event = ev||event;
+             oDiv1.style.display = 'block';
+             oDiv1.style.left = ev.clientX + 'px';
+             oDiv1.style.top = ev.clientY + 'px';
+             return false;
+     }
+
+
+
+
+  }
+
+
+
+
+</script>
+</head>
+<body>
+<div id="div1">
+
+</div>
+
+
+
+</body>
+</html>

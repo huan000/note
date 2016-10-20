@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>万年历</title>
+<style>
+ *{ font-family: 微软雅黑}
+a{
+    text-decoration: none;
+}
+
+
+
+
+</style>
+</head>
+<body>
+ <center>
+     <h1> 万年历- <?php echo $year;?>年<?php echo $month;?>月</h1>
+     <table border="1px" cellspacing="0" width="600px">
+              <tr>
+                <td>星期日</td>
+                <td>星期一</td>
+                <td>星期二</td>
+                <td>星期三</td>
+                <td>星期四</td>
+                <td>星期五</td>
+                <td>星期六</td>
+              </tr>
+            <?php
+                           for($i=(1-$week);$i<$days;){
+                    echo "<tr>";
+         for($j=0;$j<7;$j++,$i++){
+         if($i<=0 || $i>$days){
+         echo "<td>&nbsp;</td>";
+         }else{
+         echo "<td>$i</td>";
+         }
+         }
+         echo "<tr>";
+         }
+         ?>
+
+     </table>
+     <p>
+         <a href="cala.php?Y=<?php echo $prevyear;?>&m=<?php echo $prevmonth;?>">上一页</a> |
+         <a href="cala.php?Y=<?php echo $nextyear;?>&m=<?php echo $nextmonth;?>">下一页</a>
+     </p>
+ </center>
+
+
+
+</body>
+</html>

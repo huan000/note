@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+
+   /*
+    position:relative;  相对定位
+    a、不影响元素本身的特性；
+    b、不使元素脱离文档流；
+    c、如果没有定位偏移量，对元素本身没有任何影响；
+    定位元素位置控制
+    top/right/bottom/left  定位元素偏移量。
+    */
+
+    /*
+    position:absolute;  绝对定位
+    a、使元素完全脱离文档流；
+    b、使内嵌支持宽高；
+    c、块属性标签内容撑开宽度；
+    d、如果有定位父级相对于定位父级发生偏移，没有定位父级相对于整个文档发生偏移；
+    e、相对定位一般都是配合绝对定位元素使用；
+ */
+
+   /*
+    position:fixed;  固定定位
+    1. 与绝对定位基本相同
+    2. 始终针对整个文档进行定位
+    兼容性： ie6不支持固定定位
+   */
+
+   /*
+    定位元素的层级默认后者高于前者
+
+   */
+
+   /*
+    position:static
+    取消元素身上的定位  多用于js动态控制
+   */
+
+
+  /*
+   position:inherit;
+    继承父级别的定位
+  */
+
+   /* 不透明度
+    标准下兼容： opacity ：0.5；   0-1之间
+    ie下： filter:alpha(opacity=50)   !!!兼容性： 必须设置body，html 的height：100%  ie6才能都罩住内容
+
+   */
+
+
+   /* 父div包含溢出子div的问题
+    兼容性： 普通浏览器子级别会溢出父级别的区域
+            ie浏览器会把父级别的高度撑开
+    解决：
+            给父级别加上overflow：hidden （但是ie6下：父级的overflow是包不住子级的相对定位的）
+                                        解决： 给父亲也加上相对定位就可以了
+
+   */
+
+
+   /* 兼容性问题
+   1. 如果在ie6下面定位元素的父级宽高都为奇数 ， 那么在ie6下 定位元素的right 和 bottom 都有一像素的偏差
+   */
+
+   ps: 绝对定位和固定定位也是可以清除浮动的
+
+
+
+    -->
+
+
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+<style>
+body,html{
+    height: 100%;
+    margin: 0;
+}
+
+#box1{
+ width: 500px;
+    height: 300px;
+    background: blue;
+}
+
+#box2{
+    width: 300px;
+    height: 500px;
+    background: cornsilk;
+}
+
+
+</style>
+
+</head>
+<body>
+
+  <div id="box1">
+      <div id="box2"></div>
+  </div>
+
+
+</body>
+</html>

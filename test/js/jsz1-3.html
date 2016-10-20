@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bom操作</title>
+
+
+
+<!--
+  BOM: 浏览器对象模型
+1. window.open( 'url' ,打开方式);   如果url为空，默认打开一个空的页面
+                                   如果打开方式为空，默认是打开新窗口的方式
+                                   返回新打开窗口的window对象
+
+2. window.close();                 关闭一个窗口
+                                   有兼容性问题，不推荐使用
+
+3. window.navigator.userAgent      浏览器用户信息
+      if(window.navigator.userAgent.indexOf('MSIE') !=-1){
+              alert('我是ie');
+      }else{
+              alert('我是标准浏览器');
+      }
+
+4. window.location.href ：          浏览器地址信息
+   window.location.search:          url问号后面的内容
+   window.location.hash：           url#号后面的内容
+
+
+5. document.documentElement.clientWidth    文档元素的宽
+   document.documentElement.clientHeight   文档元素的高
+
+6. document.documentElement.scrollTop      可视区距文档顶部的距离(滚动距离)
+   document.documentElement.scrollLeft     横向滚动距离
+
+   处理兼容性问题：
+   var scrollTop = document.documentElement.scrollTop ||  document.body.ScrollTop；
+
+7. document.body.scrollHeight      除去边框以 后内容的高度
+
+8. window.onscroll                 当滚动条发生滚动的时候触发的事件(按照毫秒去触发)
+   window.onresize                 当窗口的大小发生改变的时候触发的事件
+
+
+
+
+
+
+
+
+
+-->
+
+
+<style>
+
+
+</style>
+<script>
+
+   window.onload= function (){
+
+
+
+   };
+
+
+
+</script>
+
+</head>
+<body>
+
+
+  <input type="button" value="按钮1">
+
+
+
+
+
+
+
+
+</body>
+</html>

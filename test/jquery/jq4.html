@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+      1. $下的常用方法  (不仅可以给jq用也可以给原生js用)  工具方法
+         $.type(obj)                   相当于原生的typeof
+         $.trim(str)                   去掉字符串中的前后空格
+         $.inArray('',arr)             找一个值在数组中的位置，如果有就返回位置
+                                       如果没有的话就返回-1
+         $.proxy('show',document，2)(2)    改变this指向的,第一个参数是函数名 第二个参数是对象
+                                           第三个参数起可以传参   括号里也可以传参
+         $.noConflict()                防止冲突   var a = $.noConflict()
+         $.parseJSON();                把一个json字符串转化成json
+         $.makeArray()                 吧一个类数组的东西转化成真正的数组 比如一组对象的集合
+
+      2. jquery中的插件
+         $.extend :                    扩展工具方法下面的插件
+         $.fn.extend :                 扩展到jq对象下面的插件
+
+         example:
+            $.extend({
+                  leftTrim:function(str){
+                  }
+            });
+
+
+    -->
+    <meta charset="UTF-8">
+    <title>jq4</title>
+
+<script src="jquery-1.9.0.min.js"></script>
+<style>
+
+</style>
+<style>
+
+
+</style>
+</head>
+<body>
+
+
+
+
+
+
+</body>
+</html>

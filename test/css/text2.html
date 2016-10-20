@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>标签选择符，超链接，seo</title>
+    <!--
+     /* target 属性
+       target = "_blank"      在一个新标签打开链接
+       target = "_parent"     在父级窗口打开  基本不使用了
+       target = "_self"       在当前页面打开 （默认的）
+       <base target ="_self">   定义页面中所有链接的打开方式
+
+       ps: 1.a标签中的一个链接如果文件地址则会直接下载
+           2.a标签中的一个链接如果是一个id的话会直接跳转到相应的位置
+     */
+
+
+     /* dl 定义列表
+          <dl>
+               <dt>定义列表的标题</dt>
+               <dd></dd>
+          </dl>
+     */
+
+
+     /* 选择符优先级
+      1. 同级的样式默认后者覆盖前者
+      2. 类型选择符号默认一个类型权重是1   累加权重大的先进行显示
+      3. class = "c1 c2"  这个顺序无所谓  还是看css的后者覆盖前者
+      4. 样式优先级别 类型选择符 < class  < id  < 行间样式 < js动态样式
+     */
+
+     /* a标签的伪类介绍
+      link     未访问(默认)
+      hover    鼠标悬停
+      active   链接激活
+      visited  访问过后
+     */
+
+     /* 其它标签支持的伪类
+      其它标签都支持 hover 伪类
+
+     &&& ie6 只支持 a 标签的伪类
+     */
+
+
+    -->
+<style>
+a:link{
+    font-size :25px;
+    text-decoration :none;
+    color: aqua;
+}
+
+a:hover{
+    color: beige;
+}
+
+a:active{
+    font-size: 50px;
+    color: black;
+}
+
+a:visited{
+    font-size:25px;
+    color: crimson;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<a href="#">测试伪类</a>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--
+        Mozilla内核　　 css前缀-moz;
+
+        WebKit内核　　css前缀-webkit ;
+
+        Opera 内核 　　css前缀 -o ;
+
+        Trident内核　　css前缀 -ms ;
+
+       1. 弹性盒模型
+       display:-webkit-box;                              //加上chrom内核的前缀
+       -webkit-box-orient:horizontal|vertical            //水平显示还是垂直显示
+       -webkit-box-direction:reverse|normal              //正序还是反序排列
+       -webkit-box-ordinal-group:2;                      //每一个盒子在这组盒子中具体排在第几个
+       -webkit-box-flex：1；                             //弹性空间管理：每个盒子在这一组盒子中占几份
+       -webkit-box-pack: start|end|center|justify        //剩余空间管理： 剩余左侧|剩余右侧|剩余两边|剩余平均分配
+       -webkit-align：start|end|center                   //垂直方向剩余空间管理：子元素顶部|子元素低部|子元素居中
+
+       2. 盒模型新增属性
+       box-shadow：【inset】 10px 10px 20px 【20px】 blue
+       //盒模型阴影：【可选参数内阴影】  x轴偏移  y轴偏移  阴影模糊宽度  【可选参数扩展半径】  颜色
+
+       -webkit-box-reflect：above|blow|left|right   10px
+       //盒模型倒影：参数1上下左右    参数2倒影距离    参数3 渐变(可选)
+
+       resize:both|horizontal|vertical|none
+       overflow：hidden；
+       //可以拖拽大小的盒模型  配合overflow一起使用
+
+       box-sizing：content-box|border-box
+       //盒模型的解析模式：content-box 标准模式
+                          border-box 怪异模式  width就代表了可视宽 -padding-border 就是内容宽
+
+
+       3. 响应式布局
+       -webkit-column-width：250px；           //分栏布局 一栏显示多宽
+       -webkit-count:4;                        //分栏列数
+       -webkit-column-gap：10px;               //分栏中间的间距
+       -weblit-column-rule:1px solid black;    //分栏的分割线
+
+
+        媒体询问： 不兼容ie8以下  需要js进行判断
+       方式1：
+       <link rel='stylesheet' type="text/css" href="index.css"  media="screen and (min-width：800px)">
+       <link rel="stylesheet" type='text/css' href='index.css"  media="all and (orientation:portrait)">  竖屏模式
+       <link rel="stylesheet" type='text/css' href='index.css"  media="all and (orientation:landscape)">  横屏模式
+
+       方式2：
+       @media screen and (min-width:400px) and (max-width:800px){}
+
+       方式3：
+       @import url("index.css") screen and (min-width:400px)     引入外部样式
+
+
+
+
+    -->
+
+
+
+
+<style>
+  #div1{
+      width: 100px;
+      height:100px;
+      border:2px solid black;
+      background: crimson;
+      resize: both;
+      overflow: auto;
+  }
+    #div2{
+        width: 100px;
+        height: 100px;
+        background: cornsilk;
+        border: 2px solid black;
+    }
+
+</style>
+
+</head>
+<body>
+
+   <div id="div1">
+
+
+
+   </div>
+
+   <div id="div2">
+
+
+   </div>
+
+
+</body>
+</html>

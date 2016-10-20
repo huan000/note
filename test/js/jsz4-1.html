@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽事件</title>
+    <!--
+      拖拽事件执行的三大流程：
+        onmousedown  : 选择元素
+        onmousemove  ：移动元素
+        onmouseup    ：释放元素
+
+      设置全局捕获：
+        当我们给一个元素设置全局捕获以后，那么这个元素就会监听后续发生的所有事件。
+        当有事件发生的时候，就会被当前设置了全局捕获的元素所触发
+        setCapture();
+        ie: 有并且有效果
+        ff: 有但是没有效果
+        chrome： 没有 会报错
+
+      释放全局捕获：
+        releaseCapture();
+
+
+
+      会产生的问题：
+      1. 选中文字后再进行拖拽会产生问题
+            当鼠标按下的时候，如果页面中有文字被选中的时候，会触发浏览器默认的
+            拖拽文字的事件
+         触发事件：
+          解决办法：
+            标准下：onmousedown 的时候  如果阻止的话  加上return false
+            ie下： 用全局捕获
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!碰撞检测没有学完
+
+
+
+    -->
+    <style>
+     #div1{
+         width: 100px; height: 100px;
+         background: red; position:absolute;
+     }
+
+    </style>
+    <script>
+      window.onload = function(){
+          var oDiv = document.getElementById('div1');
+          oDiv.onmousedown = function(ev){
+               var ev = ev||event;
+               disX = ev.clientX - this.offsetLeft;
+               disY = ev.clientY - this.offsetTop;
+
+              if( oDiv.setCapture){
+                     oDiv.setCapture();
+              }
+
+              document.onmousemove = function(ev){
+                   var ev = ev||event;
+                  oDiv.style.left = ev.clientX - disX+ 'px';
+                  oDiv.style.top = ev.clientY - disY + 'px';
+
+              };
+
+              document.onmouseup = function(ev){
+                  document.onmousemove = null;
+                  if( oDiv.releaseCapture){
+                       oDiv.relaseCapture();
+                  }
+              };
+
+              return false;   //阻止浏览器的默认文字拖拽行为
+          }
+      }
+
+    </script>
+
+</head>
+<body>
+<div id="div1"></div>
+<div id="div"></div>
+
+
+
+
+</body>
+</html>

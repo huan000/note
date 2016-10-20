@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据类型转换</title>
+    <!--
+        ECMAScript ： js中规定的标准和核心
+        js中的数据类型：
+           1. number  数字类型
+           2. string    字符串类型
+           3. bool      布尔值
+           4. function  函数
+           5. object    对象   (array,json,null都是对象)
+           6. undefined    未定义
+
+        js中判断数据类型：
+           typeof
+
+        js中数据类型的相互转换：
+         NUMBER类型的转换
+            1. Number();
+                将对象转换成number类型    如果转换不了显示NaN
+                整体上进行转换 如果涵盖了非数字则转换不了    例如： '100px' => NaN
+               只要是json都换转换成NaN
+            2. ParseInt(对象，进制);
+                 只可以转化字符串
+                 把字符串一个一个转换成数字 如果遇到非数字就会停止转化
+            3. ParseFloat();
+                 转化的过程中认得小数点。
+
+         隐式的转换：
+               +                        转化成字符串
+               - * / %     '200' -1     转化成数字
+               ++  --                   转化成数字
+               < >                      如果两个都是字符串一位一位的进行比较，其他情况转化成数字
+               ！                       转化成布尔值
+               ==                       不判断类型
+               ===                      判断类型
+
+         NaN解析：
+              NaN   代表不是一个数字  但是他的typeof 是 number
+              NaN   转化成bool是 false
+
+           使用nan做判断
+              任何类型 自己===自己
+              NaN      NaN！===NaN
+
+        isNaN：  是一个方法，检测不是一个数字  (不喜欢数字)
+                 判断某些值是不是不是数字类型
+                 根据Number()进行转换之后再进行判断
+
+                 * isNaN(NaN) == true
+
+        ps： 只要是从html中拿到的内容，类型全部都是字符串
+
+
+    -->
+
+    <script>
+
+
+
+    </script>
+</head>
+<body>
+
+
+
+
+
+</body>
+</html>

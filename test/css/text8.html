@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+    /* th td
+        默认有一个像素的padding
+
+        1. 不要给table，th，td以外的表格标签加样式
+        2. 单元格默认平分table的宽度
+        3. th里面的文字默认加粗并且上下左右居中的
+        4. td里面的内容默认上下居中，左右居左显示的
+        5. table决定了整个表格的宽度，table里面的表格会被转换成百分数
+        6. 表格里面的每一列必须有宽度（这样表格内容撑开后不会乱掉）
+        7. 同一竖列继承最大宽度
+        8. 同一行继承最大高度
+    */
+
+    /* 合并单元格间隙
+      border-collapse：collapse
+    */
+
+
+    /* 合并单元格
+     1. 合并一行 colspan
+     2. 合并一列 rowspan
+
+    */
+
+    /* form表单外边距问题
+       ie6下  form表单有margin   所有清除 form{ margin：0；}
+    */
+
+    /* input外边距和内边距
+       input margin 是2px
+       input padding  是2px
+       input border   是2px
+       一般 input{ margin：0； padding：0；}
+    */
+
+    /* select 默认外边距
+       select margin 是2px
+       border 是1px
+       select{ margin ：0px}
+    */
+
+    /* 文本框   控制文本框的大小取消  溢出自动可以取消ie6的样式不一样   取消焦点
+       {margin：0； padding：0； resize：none； overflow：auto； outline：none； }
+    */
+
+    /* input ie6会跑的问题
+       用一个div包含input
+    */
+
+
+    -->
+
+
+    <meta charset="UTF-8">
+    <title>表格与表单</title>
+
+    <style>
+
+
+
+
+    </style>
+
+
+</head>
+<body>
+
+  <input type="radio" name="gender" id="1"><label for="1">男</label>
+  <input type="radio" name="gender" id="2"> 女
+
+
+  <input type="radio" name="sex"> 1
+  <input type="radio" name="sex"> 2
+  <input type="radio" name="sex"> 3
+
+
+
+</body>
+</html>

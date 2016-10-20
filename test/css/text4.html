@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮动的原理和清除浮动</title>
+
+    <!--
+     /* float
+       1. 使块元素在同一行显示
+       2. 使内嵌元素支持宽高
+       3. 换行不会被解析
+       4. 不设置宽度的时候，宽度由内容撑开
+       5. 支持ie6，7
+       6. 脱离文档流
+       7. 提升半个层级
+       8. 如果页面添加了float属性margin 会失效
+
+      ps: ie6 如果元素想并列到同一行必须都要加浮动，要不然会有误差
+
+     */
+
+     /* clear 清除浮动  （只能加给块属性）
+       clear ：left/right/both/none
+       1. 元素的某个方向上不能有浮动元素，如果有的话自己会退到下一排
+     */
+
+
+     /* 父级包含浮动子级的问题
+       1. 给父级也添加浮动   （可以包含住但是margin会消失）
+       2. inline-block     （margin会消失不推荐）
+       3. 在增加一个高度为零的子级别的div(ie6不兼容) &&&  增加fong-size ：0；（只能处理到2px的高度）
+       4. 增加一个子级 <br clear='all'>   (推荐)
+       5. 给父级元素增加一个clear类  .clear：after{content:'';display:block;clear:both;}
+                                  .clear {zoom:1;}
+             *1 在ie6， 7 下父级别有宽度的话就不用清除浮动  因为触发了haslanout；
+                在.clear{zoom：1；}  也可以触发haslanout
+                只有 ie6，7 才支持zoom1属性
+
+
+       6. 给父级加上overflow:visible; 可以清除浮动  (ie6 overflow 属性没有包含浮动元素的功能)
+          给父级加上zoom：1；触发ie6的haslanout属性可以解决这个兼容性问题
+       7. 给父级别加上position：fixed； 和
+          position:absolute;
+
+     */
+
+
+     /* ie6 下面的最小高度的问题
+        在ie6下 高度小于19像素的元素，高度会被当作19像素来处理
+        解决：
+          1. 加font-size：0；  但是最只能处理到两个像素的高度
+          2. 加overflow：hidden；
+
+     */
+
+     /* overflow 控制溢出
+          auto 溢出显示滚动条
+          scroll  永久显示滚动条
+          hidden  溢出隐藏
+          visible  不隐藏溢出的内容
+          ps:可以检测出子级的浮动
+           overflow在ie6下面不具备包裹浮动子级元素的作用，父级别必须加上
+           width触发ie6下面的haslanout
+
+     */
+
+
+    -->
+
+<style>
+body{
+    margin: 0;
+}
+
+#box{
+    width: 300px;
+    margin: 0 auto;
+    border: 10px solid black;
+    background: cyan;
+}
+#div{
+    width: 200px;
+    height: 200px;
+    background: red;
+    float :left;
+}
+
+.clear:after{
+  content: '';
+    display: block;
+    clear: both;
+}
+
+
+
+</style>
+
+
+</head>
+<body>
+  <div id="box" class="clear">
+       <div id="div"></div>
+      <!--<br clear="all">-->
+  </div>
+
+
+</body>
+</html>

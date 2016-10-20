@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+    1. 事件的另外一种写法
+      obj.on({'click':function(){alert(123)}, 'mouseover':function(){alert(345)}})
+      obj.off();    取消事件
+      obj.one();    事件只可以执行一次
+
+    2. 滚动距离
+      $(window).scrollTop();          可视区距页面顶部的距离
+      $(window).scrollLeft();         页面的横向滚动距离
+
+    3. 创建一个节点
+      $('<div>');                     如果加上html标签  就是创建一个元素
+
+    4. 事件对象
+      obj.click(function(ev){});      只要传入ev就可以了已经是兼容的写法了
+
+      ev.pageX (相对文档的鼠标定位)：可视区加滚动宽度    ev.clientX(相对于可视区的)
+      ev.which                        相当于原生中的KeyCode
+      ev.preventDefault()             相当于原生中的阻止默认事件
+      ev.stopPropagation();           阻止事件冒泡
+      return false                    既阻止默认事件  又阻止冒泡操作
+
+    5. 距离相对定位父节点的距离
+      obj.offset().left               获取到屏幕的左距离 也就是到html的距离
+      obj.offset().top                获取到屏幕顶部的距离  (无论父级有没有定位)
+      obj.position().left             该元素到有定位的父级的left的值 (不包含margin值)
+      obj.position().top              该元素到有定位的父级的top的值 (不包含margin值)
+
+    6. 获取一个元素有定位父级元素的节点
+      obj.offsetParent();             该元素有定位父级的元素的节点 (如果没有默认是body)
+      obj.parent();                   获取一个元素的父级
+
+    7. 获取一个元素的value值
+      obj.val()
+
+    8. 获取一组元素的长度
+      obj.size();                     相当于原生中的length
+
+    9. for循环的加强版
+      obj.each(function(i(下标),aElement(所有的元素)){});
+
+    10.鼠标移入移出的结合版
+      obj.hover(function(){},function(){});   第一个函数是鼠标移入地时候  第二个是移出
+                                              其实分别写两个事件也是可以得
+
+    11. 元素的显示和隐藏
+      obj.show(1000)                      ps:也可以通过控制样式达到这种效果
+      obj.hide()                          参数毫秒可以控制隐藏时间
+      obj.fadeIn(1000)                    淡入  (只控制透明度)
+      obj.fadeOut()                       淡出
+      obj.fadeTo(1000，0.5)               实现半透明
+      obj.slideUp()                       向上卷曲
+      obj.slideDown()                     向下展开
+
+
+
+
+    -->
+    <meta charset="UTF-8">
+    <title>jquery11-17课</title>
+
+<style>
+*{margin:0; padding:0;}
+#div1{
+    width: 100px;
+    height: 100px;
+    background: red;
+    position: absolute;
+}
+
+
+</style>
+<script src="jquery-1.9.0.min.js"></script>
+<script>
+    $(function(){
+        var disX = 0;
+        var disY = 0;
+        $('#div1').mousedown(function(ev){
+              disX = ev.pageX - $(this).offset().left;
+              disY = ev.pageY - $(this).offset().top;
+             $(document).mousemove(function(ev){
+                   $('#div1').css('left',ev.pageX-disX);
+                   $('#div1').css('top',ev.pageY-disY);
+             });
+
+            $(document).mouseup(function(){
+                   $(document).off();
+            });
+                   return false;
+
+        });
+
+
+
+
+    });
+
+</script>
+
+</head>
+<body>
+
+  <div id="div1"></div>
+
+
+
+</body>
+</html>
