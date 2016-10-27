@@ -80,6 +80,19 @@
                     如果自己有定位，那么offsetLeft是到定位父级的距离
           其他：  到定位父级的距离
 
+   ************获取一个元素到页面边缘的绝对距离
+          function getAbs(ele){
+                var x = ele.offsetLeft;
+                var y = ele.offsetTop;
+                while(e = ele.offsetParent){
+                    x += e.offsetLeft;
+                    y += e.offsetTop;
+                }
+                return x,y;
+          }
+
+
+
 
    10. /*
      style.width :  样式宽    width
