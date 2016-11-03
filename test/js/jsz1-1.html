@@ -201,38 +201,34 @@
 -->
 
 
-<script>
-  window.onload=function(){
-     var oText = document.getElementById('text1');
-     var oBtn = document.getElementById('btn');
-     var oUl = document.getElementById('ul1');
-     //按钮的点击事件
-      oBtn.onclick = function(){
-            //创建一个li元素
-          var oLi = document.createElement('li');
-            oLi.innerHTML = oText.value;
-          oUl.insertBefore(oLi,oUl.children[0]);
-
-
-      }
-
-
-  }
-</script>
-
-
-
 </head>
 <body>
-   <input type="text" id="text1"><input type="button" value="留言" id="btn">
-   <ul id="ul1">
+<input type="text" id="input">
+<button id="btn" onclick='fn1()'> 提交 </button>
+
+   <ul id="ul">
 
 
    </ul>
 
 
 
-
-
 </body>
 </html>
+
+<script>
+
+    function fn1(){
+        var input = document.getElementById('input');
+        var btn = document.getElementById('btn');
+        var ul = document.getElementById('ul');
+
+        var li = document.createElement('li');
+        li.innerHTML = input.value;
+
+        ul.appendChild(li);
+
+    }
+
+
+</script>

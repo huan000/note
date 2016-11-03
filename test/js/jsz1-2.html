@@ -4,6 +4,76 @@
     <meta charset="UTF-8">
     <title>表格相关操作</title>
 <!--
+ 1. 通过class名找到一组元素
+     function getElementsByClassName(parent,tagName,classname){
+           // 找到所有的元素
+           var aEle = parent.getElementsByTagName(tagName);
+           // 保存所有class相等的数组
+           var arr = [];
+           // 循环所有元素找到相等的
+           for(var i=0; i<aEle.length; i++){
+                 var aClassName = aEle[i].className.split(' ');
+                 for(var j=0; j<aClassName.length; j++){
+                     if(aClassName[j] == classname){
+                          arr.push( aEle[i]);
+                         break;    //找到一个直接break跳出本次for循环  避免重复
+                     }
+                 }
+           }
+           return arr;
+       }
+
+   2. 添加一个class
+     function addClass(obj,className){
+           if(obj.className == ''){
+               // 当前没有class
+               obj.className = className;
+           }else{
+               // 之前已经有class了
+               var arrclassName = obj.className.split(' ');
+               var _index = arrIndexOf(arrclassName,className);
+               if(_index == -1){
+                  //如果要添加的class在原来的class中不存在
+                  obj.className += " " + className;
+               }
+                  //如果存在不需要做任何反应
+           }
+     }
+     //  找到一个数组中值的位置
+     function arrIndexOf(arr,v){
+          for(var i=0; i<arr.length;i++){
+              if(arr[i] == v){
+                    return i;
+              }
+          }
+                    return -1;
+     }
+
+    3. 移除一个class
+    function removeClass(obj,className){
+          //如果原来有class才进行移除
+          if(ojb.className != ''){
+                  var arrClassName = obj.className.split(' ');
+                  var _index = arrIndexOf(arrClassName,className);
+                  //如果其中有要移除的class
+                  if(_index !=-1 ){
+                      arrClassName.splice(_index,1);
+                      obj.className = arrClassName.join(' ');
+                  }
+
+
+          }
+
+
+    }
+
+
+
+
+
+
+
+
    //表格相关操作
    tHead ： 表格头
    tBodies ： 表格正文
@@ -42,36 +112,18 @@
 
 -->
 <script>
-   window.onload=function(){
-
-      var data = [
-          {id:1,username:'leo',sex:'男'},
-          {id:2,username:'xx',sex:'女'},
-          {id:3,username:'yy',sex:'男'},
-          {id:4,username:'zz',sex:'女'}
-      ];
-
-      //获取这个表格
-       var oTab = document.getElementById('tab1');
-       //找到tbody对象
-       var Tbody = oTab.tBodies[0];
-
-      //循环整个数据插入表格
-       for(var i=0; i<data.length; i++){
-           //循环一次创建一行出来
-           var tr = document.createElement('tr');
-           var td = document.createElement('td');
-           td.innerHTML = data[i].id;
-           tr.appendChild(td);
+   window.onload=function() {
 
 
 
-           Tbody.appendChild(tr);
 
-       }
+
+       alert(getElementsByClassName('li').length);
 
 
    }
+
+
 
 
 
@@ -80,23 +132,12 @@
 
 </head>
 <body>
-
-
-<table id="tab1" width="100%" border="1px">
-      <thead>
-         <tr>
-             <th>编号</th>
-             <th>姓名</th>
-             <th>性别</th>
-             <th>操作</th>
-         </tr>
-      </thead>
-
-       <tbody>
-
-       </tbody>
-</table>
-
+  <ul id="ul">
+     <li class="li    li">1</li>
+     <li class="li">2</li>
+     <li>3</li>
+     <li class="li">4</li>
+  </ul>
 
 
 </body>
