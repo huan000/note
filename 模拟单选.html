@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟单选</title>
+    <style>
+        .choose{width: 625px; border-top: 1px dotted #efefef; margin-top: 10px; padding-top:10px;}
+        .choose li{height: 25px; line-height: 25px;}
+        .choose dt{float: left; display: inline; width: 70px; text-align: right; margin-right: 3px; color: #666; }
+        .choose dd a{float: left; display: inline; padding: 1px 11px; background: #fff; border: 1px solid #ccc; text-align: center; color: #666; margin:0 5px 0 0; }
+
+        .choose dd a:hover{text-decoration: none; border: 2px solid #e4393c; color:#E4393C; padding: 0px 10px;}
+        .choose dd a.selected{border: 2px solid #e4393c; background: url("../images/arrow.gif") right bottom no-repeat; padding: 0 10px;}
+        .choose input{display: none;}
+        .choose .amount{float:left; display: inline; width: 30px; height: 16px; padding: 2px; border: 1px solid #ccc; text-align: center; margin: 0 5px; }
+
+    </style>
+</head>
+<body>
+<ul>
+    <?php foreach ($gaData1 as $k => $v): ?>
+    <li class="product">
+        <dl>
+            <dt>{$k}：</dt>
+            <dd>
+                <?php foreach ($v as $k1 => $v1): ?>
+                <a <?php if($k1==0) echo 'class="selected"'; ?> href="javascript:;">
+                {$v1.attr_value}
+                <input type="radio" name="goods_attr_id[<?php echo $v1['attr_id']; ?>]" value="<?php echo $v1['id']; ?>" <?php if($k1==0) echo 'checked="checked"'; ?> />
+                </a>
+                <?php endforeach; ?>
+            </dd>
+        </dl>
+    </li>
+    <?php endforeach; ?>
+    <li>
+        <dl>
+            <dt>购买数量：</dt>
+            <dd>
+                <a href="javascript:;" id="reduce_num"></a>
+                <input type="text" name="amount" value="1" class="amount"/>
+                <a href="javascript:;" id="add_num"></a>
+            </dd>
+        </dl>
+    </li>
+    <li>
+        <dl>
+            <dt>&nbsp;</dt>
+            <dd>
+                <input type="submit" value="" class="add_btn" />
+            </dd>
+        </dl>
+    </li>
+</ul>
+
+
+
+</body>
+</html>
+
+<script>
+
+    $(".product a").click(function(){
+        $(this).addClass("selected").siblings().removeClass("selected");
+        $(this).find("input").attr({checked:"checked"});
+        //去除虚边框
+        $(this).blur();
+    });
+</script>
