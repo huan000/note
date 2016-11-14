@@ -37,8 +37,18 @@
         ps：  1.上下两个和盒子的外边距会叠加
              2.如果有父级别时，(margin-top)子级的外边距会把外边距传递给父级 (可以用父级的padding替代margin)  margin-top
 
+             解决办法：
+                1.修改父元素的高度，增添padding-top样式模拟（常用）；
+                2.为父元素添加overflow:hidden;样式即可（完美）；
+                5.为父元素或者子元素声明浮动（可用）；
+                3.为父元素添加border（可用）;
+                4.添加额外的元素放在子元素最前面，设置高度为1px，overflow:hidden(若为行内元素，需要声明为块元素)（啰嗦）;
+                6.为父元素或者子元素声明绝对定位（……）。
+
+
              margin-left：auto；  会跑到页面的最右边
              margin-left：auto； margin-right：auto； 会跑到页面的中间
+
         */
 
         /* font
