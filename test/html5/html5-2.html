@@ -66,7 +66,23 @@
        onhashchange:      #aaa    当页面url的hash值改变的时候来进行管理
 
 
+       设置拖拽元素：
+       <li draggable='true'></li>
 
+       对当前拖拽元素加事件：
+       dragstart： 拖拽的一瞬间触发
+       drag：拖拽的时候连续触发
+       dargend: 拖拽结束的时候触发
+
+       对目标元素加事件:
+       dragenter ：进入目标元素的时候触发
+       dragover : 进入目标元素，离开目标元素的时候连续触发 (必须阻止默认事件)
+       dargleave ： 离开目标元素的时候触发
+       drop : 在目标元素上释放鼠标的时候触发
+
+       解决火狐不能拖拽的问题：
+       event.dataTransfer.setData('name','hello');      //设置event事件对象就可以拖拽了
+       event.dataTransfer.getData('name');              //拖拽事件中获取参数
 
 
 
