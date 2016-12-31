@@ -4,6 +4,37 @@
     <meta charset="UTF-8">
     <title>html5-3canvas</title>
 <!--
+    1.<canvas width="300px" height="300px"></canvas>   默认宽300，高150  (如果不支持canvas显示标签里面的代码)
+    2.canvasobj.getContext('2d');     得到绘图对象
+    3.webgl                           制作3d的绘图
+
+    绘制方块：
+    fillRect(l,t,w,h);                绘制实心方块
+    strokeRect(l,t,w,h);              绘制带边框的方块
+
+    设置绘图：
+    canvasObj.fillStyle = "red"       填充颜色
+    canvasObj.strokeStyle = "blue";   边框的颜色
+    canvasObj.lineWidth = 10;         设置边框的颜色
+
+    边界绘制
+    canvasObj.lineJoin = 'round || bevel';                  设置是圆角还是斜角
+    canvasObj.lineCap = 'round||square(高度多出宽一般的值)';  端点样式
+
+    绘制路径
+    canvasObj.beginPath()             开始绘图路径
+    canvasObj.closePath();            结束绘图路径,可以闭合几个点
+    canvasObj.moveTo();               开始的绘图点
+    canvasObj.lineTo();               下一个目标点
+
+    canvasObj.stroke();               画一条线
+    canvasObj.fill();                 填充一个图形
+    canvasObj.rect(x,y,w,h);          绘制一个矩形
+    canvasObj.clearRect(x,y,w,h);     清除一片区域
+
+    保存和回复路径
+    canvasObj.save();                 保存路径
+    canvasObj.fill();                 结束保存  (可以将设置颜色等信息封闭起来)
 
 
 
@@ -11,9 +42,37 @@
 
 -->
 
+<style>
+   body{
+        background: black;
+   }
+   #c1{
+       background: white;
+   }
+
+</style>
+
+<script>
+    window.onload = function(){
+        var oC = document.getElementById('c1');
+        var oGC = oC.getContext('2d');
+        oGC.beginPath();
+        oGC.moveTo(100,100);
+        oGC.lineTo(200,200);
+        oGC.lineTo(300,200);
+        oGC.closePath();
+        oGC.stroke();
+
+
+
+    }
+
+
+</script>
+
 </head>
 <body>
-
+    <canvas id="c1" width="600" height="600"></canvas>
 
 
 
