@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html5-3canvas</title>
+<!--
+   绘制其它曲线
+        arcTo(x1,y1,x2,y2,r);     第一组坐标   第二组坐标    半径
+        quadraticCurveTo(dx,dy,x,y);            第一组控制点     结束点坐标
+        bezierCurveTo(dx1,dy1,dx2,dy2,x,y);     第一组控制点   第二组控制点   结束点坐标
+
+   变换
+        translate(x,y);              变换原始坐标点
+        rotate(45*Math.PI/180);      旋转  (以坐标的左上角旋转)
+        scale(w,h);                  缩放  宽和高缩放的比例
+
+-->
+
+<style>
+   body{
+        background: black;
+   }
+   #c1{
+       background: white;
+   }
+
+</style>
+
+<script>
+    /**
+     * 例子
+     */
+    window.onload = function(){
+
+        var oc = document.getElementById('c1');
+        var ogc = oc.getContext('2d');
+
+        ogc.translate(300,300);
+
+        var num = 0;
+
+            ogc.clearRect(0,0,600,600);
+
+
+
+            ogc.save();
+
+            ogc.rotate(77*Math.PI/180);
+            ogc.fillRect(0,0,100,100);
+            ogc.restore();
+
+
+
+
+
+
+    }
+
+
+</script>
+
+</head>
+<body>
+    <canvas id="c1" width="600" height="600"></canvas>
+
+
+
+
+
+
+
+
+</body>
+</html>
