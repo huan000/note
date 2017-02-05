@@ -5,9 +5,36 @@
     <title>html5-3canvas</title>
 <!--
        使用canvas添加图片
-       
+       ogc.drawImage(obj,x,y,w,h);
+
+       设定背景
+       createPattern(obj,repeat-x||repeat-y||no-repeat);
+
+       线性渐变
+       obj = ogc.createLinearGradient(x,y,x1,y1);
+       obj.addColorStop(0,'red');
+       obj.addColorStop(1,'blue');
+       ogc.fillStyle = obj;
+
+       放射性渐变
+       obj = ogc.createRadialGradient(x,y,r,x1,y1,r1);
+       obj.addColorStop(0,'red');
+       obj.addColorStop(1,'blue');
+       ogc.fillStyle = obj;
 
 
+       文字
+       obj.font = '60px impact';            //设置文字大小
+       obj.fillText('文字',0,0);            //书写文字
+       obj.strokeText('文字',x,y);          //书写文字边框
+       obj.textAlign                        //文字的左右对齐   默认是左边不用设置
+       obj.textBaseline                     //文字的上下对齐   应该设置为 top
+
+       obj.measureText(str)                 //测试一个文字的宽度
+       obj.shadowOffsetX = 10               //阴影往右移动
+       obj.shadowOffsetY                    //阴影上下移动
+       obj.shadowBlur = 3                   //设置阴影的高斯模糊值
+       obj.shadowColor='red'                //阴影的颜色
 
 
 
@@ -16,6 +43,7 @@
 <style>
    body{
         background: black;
+       color: white; font-size: 25px;;
    }
    #c1{
        background: white;
@@ -28,21 +56,36 @@
      * 例子
      */
     window.onload = function(){
+        var oc = document.getElementById('c1');
+        var ogc = oc.getContext('2d');
+
+        ogc.font = '24px impact';
+        ogc.textBaseline = 'top';
+
+        var w = ogc.measureText('文字').width;
+
+        ogc.shadowOffsetX = 2;
+        ogc.shadowOffsetY = 2;
+        ogc.shadowBlur  = 3;
+        ogc.shadowColor = 'grey';
 
 
+        ogc.fillText('文字',(oc.width-w)/2,(oc.height-24)/2);
 
     }
+
+
+
+
+
 
 
 </script>
 
 </head>
 <body>
-    <canvas id="c1" width="600" height="600"></canvas>
 
-
-
-
+        <canvas id="c1" width="600" height="600"></canvas>
 
 
 

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html5-3canvas</title>
+<!--
+      像素控制
+       getImageData(x,y,w,h);                   获取一片区域的像素集合
+       属性：
+       width                                    一行像素的个数
+       height                                   一列像素的个数
+       data                                     一个数组 包含每个像素的rgba四个值，每个值都在0-255之间
+
+       putImageData(图像对象,x,y);               设置新的图像在页面上
+       createImageData(w,h);                    创建除一批新的像素矩阵，初始值全是 0 0 0 0
+
+
+
+
+-->
+
+<style>
+   body{
+        background: black;
+       color: white; font-size: 25px;
+       
+   }
+   #c1{
+       background: white;
+   }
+
+</style>
+
+<script>
+    /**
+     * 例子
+     */
+    window.onload = function(){
+        var oc = document.getElementById('c1');
+        var ogc = oc.getContext('2d');
+        var aLi = document.getElementsByTagName('li');
+        for(var i=0; i<aLi.length; i++){
+            aLi[i].onclick = function(){
+                var str = this.innerHTML;
+                ogc.clearRect(0,0,oc.width,oc.height);
+                ogc.font = '60px impact';
+                ogc.textBaseline = 'top';
+                var w = ogc.measureText(str).width;
+                ogc.fillText(str,(oc.width-w)/2,(oc.height-60)/2);
+
+                //先获取到这个区域的所有像素
+                var oImg = ogc.getImageData((oc.width-w)/2,(oc.height-60)/2,w,60);
+                //获取到所有的像素就可以清空了
+                ogc.clearRect(0,0,oc.width,oc.height);
+
+                //从一组像素中随机选出百分之10的像素点
+                var arr = randomArr(w*60,w*60/2);
+                //创建一个新的区域  每个像素默认是黑色透明
+                var newImage = ogc.createImageData(w,60);
+                for(var i=0; i<arr.length; i++){
+                       newImage.data[4*arr[i]] = oImg.data[4*arr[i]];
+                       newImage.data[4*arr[i]+1] = oImg.data[4*arr[i]+1];
+                       newImage.data[4*arr[i]+2] = oImg.data[4*arr[i]+2];
+                       newImage.data[4*arr[i]+3] = oImg.data[4*arr[i]+3];
+                }
+                ogc.putImageData(newImage,(oc.width-w)/2,(oc.height-60)/2);
+            }
+        }
+
+
+
+
+
+        //从一组随机数中抽取指定的随机数
+        function randomArr(iAll,iNow){
+            var arr = [];
+            var newArr = [];
+            // 把所有的数存进数组里
+            for(var i=0;i<iAll;i++){
+                  arr.push(i);
+            }
+            // 把随机十分之一的数添加进去
+            for(var i=0;i<iNow;i++){
+                  newArr.push( arr.splice( Math.floor(Math.random()*arr.length),1));
+            }
+            return newArr;
+        }
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+</script>
+
+</head>
+<body>
+
+        <canvas id="c1" width="600" height="600"></canvas>
+        <ul style="float: left;">
+            <li>秒</li>
+            <li>味</li>
+            <li>课</li>
+            <li>堂</li>
+        </ul>
+
+</body>
+</html>

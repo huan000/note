@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html5-3canvas</title>
+<!--
+        离线应用：
+            1.  在服务器设置头信息
+                    AddType text/cache-manifest .manifest
+            2.  html标签添加属性
+                    manifest="xxx.manifest"
+            3.  写manifest文件： 离线清单列表
+                    先写：CACHE MANIFEST
+                    FALLBACK: 第一个网络地址中没有获取到，就走第二个缓存
+                    NETWORK:  无论缓存中存才与否，均从网络中获得
+
+         webworker:
+            1.  创建web worker 对象
+                    var w1 = new Worker('后台处理的js文件地址');
+            2.  利用postMessage传输数据
+                        w1.postMessage('data');
+            3.  后台中接受数据
+                        self.onmessage = function(ev){
+                               alert(ev.data);
+                        }
+            4.   后台中导入其他的js文件
+                        importScripts('导入其他的js文件');
+
+            在后台线程文件中可以使用的数据：
+                 navgator：appName，appVersion，userAgent，platform
+                 location：所有属性都是只读的
+                 self：指向全局的worker对象
+
+          html5：一些小功能的编辑和展示
+             1.  可以编辑标签里面的内容
+                 contenteditable = 'true'
+
+             2.  语言输入
+                 <input type="text" x-webkit-speech>      支持语言的输入：只支持webkit内核的浏览器
+
+             3.
+
+
+-->
+
+
+
+<style>
+
+
+
+
+
+</style>
+
+<script>
+    /**
+     * 例子
+     */
+    window.onload = function(){
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+</script>
+
+</head>
+<body>
+
+
+
+
+
+
+
+
+</body>
+</html>

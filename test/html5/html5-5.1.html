@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html5-3canvas</title>
+<!--
+        不同窗口进行通信
+        1. iframe    框架之间进行通信
+        2. window.open      打开的新窗口之间的通信s
+        3. ajax      之间的通信
+
+
+        窗口之间的通信  通过js访问被包含窗口的dom元素 (同域名之下)
+        1. iframe 子窗口之间的通信
+           iframeobj.contentWindow        被包含的window对象 (得到对象就可以操作里面的dom节点)
+        2. window.open 窗口之间的通信
+           newWindowObj = window.open();       返回的新对象就是新打开窗口的window的对象
+
+
+
+       窗口之间的通信  通过js访问被包含窗口的dom元素 (跨域名情况下)
+
+        1. iframe 子窗口之间的通信
+           发送方 父级窗口
+            利用postMessage 方法传递信息给子窗口  (接受窗口的window对象.postMessage())
+            iframeObj.contentWindow.postMessage('a','http://www.b.com');  参数1：发送的数据  参数2：http的地址
+
+           接收方 子级窗口
+            利用message事件 ： 当窗口接收到postMessage发送过来的数据的时候触发
+            ev.data ： message事件对象下面保存了发送过来的内容  (如果发送的数据是1则执行相关的操作)
+            ev.origin : message事件对象下面保存了发送方的域名
+
+                例子：
+             window.addEventListener('message',function(ev){
+                 alert('我接受到的a.com页面发送过来的数据内容是' + ev.data);
+             },false);
+
+
+
+           子级别获取父级别的window对象
+                parent ：当前页面的父级窗口
+                window ： 当前窗口
+
+        top： 顶级窗口
+
+        2. window.open 子窗口之间的通信
+            window.opener       :      被打开页面的父级别窗口
+
+
+
+        ajax的跨域请求：
+            1.在标准浏览器下面 XMLHttpRequest对象已经是升级版本的了，可以支持跨域请求
+              但是还需要后端输出一条头信息才可以跨域  header('Access-Control-Allow-Origin:http://www.a.com');
+
+            2.在ie浏览器下面用到新对象  (支持ie7包含以上)
+              var XDomainRequest = new XDomainRequest();
+                XDomainRequest.onload = function(){    // onerror : 请求出错 ； onprogress： 请求进行中 ； ontimeout: 请求超时
+                          // 当请求成功的时候
+                    alert(this.responseText);
+                }
+                XDomainRequest.open();
+                XDomainRequest.send();
+
+
+
+         ajax：无刷新上传
+
+
+
+
+-->
+
+
+
+<style>
+
+
+
+
+
+</style>
+
+<script>
+    /**
+     * 例子
+     */
+    window.onload = function(){
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+</script>
+
+</head>
+<body>
+
+
+
+
+
+
+
+
+</body>
+</html>

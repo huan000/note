@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html5-3canvas</title>
+<!--
+      地理位置和本地存储  (目前获取地理位置信息只支持https协议)
+      1. 经度 ： 南极和北极的连线
+         纬度 ： 东西方向的连线
+
+      2. 获取地理位置的方法
+         1. ip地址   2.gps全球定位系统   3.wi-fi无线网络   4.基站
+
+      获取地理位置的对象
+         navigator.geolocation
+      单次请求地理位置方法
+         navigator.geolocation.getCurrentPosition(请求成功的回调，请求失败的回调，数据收集方式);
+
+      请求成功的属性：
+         handle.coords.longitude                经度
+         handle.coords.latitude                 纬度
+         handle.coords.accuracy                 准确度
+         handle.coords.altitude                 海拔
+         handle.coords.altitudeAcuracy          海拔准确度
+         handle.coords.heading                  行进方向
+         handle.coords.speed                    地面速度
+         new Date(positon.timestamp)            时间戳
+
+       请求失败的属性：
+         err.code;                              失败所对应的编号
+
+       设置请求参数
+        enableHighAccuracy: true,              // 是否获取高精度结果
+                    timeout: 5000000,          //超时,毫秒
+                    maximumAge: 0              //可以接受多少毫秒的缓存位置
+
+       多次请求：
+          navigator.geolocation.watchPosition(请求成功的回调，请求失败的回调，数据收集方式);
+            1. 对移动设备有效
+            2. frequency      更新的频率
+
+       关闭更新请求
+            navigator.geolocation.clearWatch(timer);
+
+
+       本地存储：
+            storage：
+                1.sessionStorage
+                     临时会话，从页面打开到页面关闭的时间段
+                     窗口临时存储，页面关闭，本地存储消失
+                     不支持页面的共享
+                2.localStorage
+                     永久存储 (手动进行删除)
+
+            Storage特点
+                存储量显示 5M
+                客户端完成，不会请求服务器处理
+
+            window.localStorage.方法()；
+                setItem('key','value');
+                getItem('key');
+                removeItem('key');
+                clear();
+
+           存储的事件对象和属性
+               window.addEventListener('storage',function(ev){
+                    ev.key;             //修改或者删除的key值，如果调用clear(); 则key为null
+                    ev.newValue;        //如果调用removeStorage();则key为null
+                    ev.oldValue;        //调用改变前的value值
+                    ev.storageArea;     //当前的storage对象
+                    ev.url;             //触发当前脚本的文档url
+               });
+
+               sotrage触发事件对当前窗口不起作用
+
+
+
+-->
+
+
+
+<style>
+
+
+
+
+
+</style>
+
+<script>
+    /**
+     * 例子
+     */
+    window.onload = function(){
+        var oInput = document.getElementById('input1');
+        var oT = document.getElementById('t1');
+
+        oInput.onclick = function(){
+
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(pos) {
+                    // A callback function that takes a Position object as its sole input parameter.
+                    // 成功回调函数，接受一个地理位置的对象作为参数。
+                    // https://developer.mozilla.org/en-US/docs/Web/API/Position 参数说明
+                    alert(1111);
+                }, function(err) {
+                    // An optional callback function that takes a PositionError object as its sole input parameter.
+                    // 错误的回调
+                    // https://developer.mozilla.org/en-US/docs/Web/API/PositionError 错误参数
+                    console.log(err.code);
+                }, {
+                    enableHighAccuracy: false, // 是否获取高精度结果
+                    timeout: 5000, //超时,毫秒
+                    maximumAge: 0 //可以接受多少毫秒的缓存位置
+                    // 详细说明 https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions
+                });
+            } else {
+                alert('抱歉！您的浏览器无法使用地位功能');
+            }
+
+
+
+
+        }
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+</script>
+
+</head>
+<body>
+
+    <input type="button" value="请求" id="input1"> <br>
+    <textarea id="t1" style="width: 400px;height: 400px;border: 1px solid black;">
+
+
+
+
+    </textarea>
+
+
+
+
+
+</body>
+</html>
