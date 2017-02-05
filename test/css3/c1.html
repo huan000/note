@@ -5,6 +5,7 @@
     <title>c1</title>
 <!--
    1.transition:1s;       //一个元素变到hover状态的时间      兼容性：ie9以下不支持
+     js: 写法 -webkit-transition     WebkitTransition
 
    2. 属性选择器    兼容性：ie7 以下不支持
    p[attr]{background:red;}    标签指定属性名选择器
@@ -13,6 +14,7 @@
    p[attr^='value']            标签指定属性名和属性值，属性值是用value开始的
    p[attr$='value']            标签指定属性名和属性值，属性值是用value结尾的
    p[attr*='value']            标签指定属性名和属性值，属性值包含了value
+   p[attr|=b]                  找到单纯的b属性值 或者b-开始的属性值
 
   3. 结构性伪类
    p:nth-child(odd|even|1|2n)     p标签的父级下面的奇数行，偶数行，第一行，2的倍数，这个元素必须是p
@@ -55,29 +57,36 @@
 -->
 
 <style>
-    .box{
-        width: 100px;
-        height: 100px;
-        background: crimson;
-    }
-    .box:hover{
-        width: 200px;
-        height: 200px;
-        background: blue;
-    }
+body{
 
+}
 </style>
 
 
 </head>
-<body>
+<body id="body">
+    <!--<p>-->
+        <!--世界经济发展到今天，上一轮科技和产业革命所提供的动能已经接近耗尽，传统经济体制和发展模式的潜能趋于消退。同时，发展不平衡问题远未解决，现有经济治理机制和架构的缺陷逐渐显现。这些因素导致世界经济整体动力不足，有效需求不振。其表象是增长乏力、失业率上升、债务高企、贸易和投资低迷、实体经济失速、金融杠杆率居高不下、国际金融和大宗商品市场波动等一系列问题。面对相对疲软的世界经济，一方面各国面对萧条，通过实施宽松货币政策等刺激措施推动经济复苏；另一方面经济衰退引致的国内就业等矛盾激化，进而造成国际关系相对紧张。但事实证明，无论简单的货币政策刺激，还是地缘政治冲突，都无法为世界经济增长带来长期稳定发展的内在动力。如何从根本上解决这些问题？习近平开出良方：“我们既要治标以求眼下稳增长，又要治本以谋长远添动力；既要落实好以往成果，又要凝聚新的共识；既要采取国内措施、做好自己的事，又要精诚合作、共同应对挑战。”-->
+    <!--</p>-->
 
- <div class="box"></div>
-
-
-
-
-
-
+  <div style="width: 200px;height: 600px;background: coral;"></div>
+<!---->
+  <p id="p"></p>
+  <p id="p1"></p>
 </body>
 </html>
+
+<script>
+
+
+    window.onload = function(){
+     var body = document.getElementById('p');
+     body.innerHTML = document.documentElement.clientWidth;
+
+        var p1 = document.getElementById('p1');
+        p1.innerHTML = window.innerWidth;
+
+
+    }
+
+</script>
