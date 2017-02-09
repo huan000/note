@@ -7,6 +7,7 @@
    1.transition:1s;       //一个元素变到hover状态的时间      兼容性：ie9以下不支持
      js: 写法 -webkit-transition     WebkitTransition
 
+
    2. 属性选择器    兼容性：ie7 以下不支持
    p[attr]{background:red;}    标签指定属性名选择器
    p[attr='value']{}           标签指定属性名和属性值
@@ -51,6 +52,23 @@
    white-space：nowrap；                 强制文本超出之后不换行
    overflow:hidden;                      文字超出之后进行隐藏
    text-overflow：clip|ellipsis          文字超出之后是否显示省略号(配合上面两条一起使用)
+
+   6.
+      直接子代选择器
+      ul>li                    只能够选出直接的子代节点     ie6-ie8不兼容
+      后代选择器
+      ul li                    选择ul的子孙节点的所有li     全兼容
+
+   7. 引入字体
+      @font-face{
+    font-family: 'weijinsuo';   /*字体名字*/
+    src:url('../font/MiFie-Web-Font.eot') format('embedded-opentype'),
+    url('../font/MiFie-Web-Font.svg') format('svg'),
+    url('../font/MiFie-Web-Font.ttf') format('truetype'),
+    url('../font/MiFie-Web-Font.woff') format('woff');
+    }
+
+
 
 
 
