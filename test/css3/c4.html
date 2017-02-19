@@ -8,8 +8,28 @@
       transition: 500ms width | all   ease(默认快到慢) linear(匀速)  ease-in(加速) ease-out(减速) ease-in-out(加速后减速)；
       //一个对象由普通状态编程hover状态的过程  第二个选择可以过度的参数
 
+      过渡完成事件：
+      标准下：
+          obj.addEventListener('WebkitTransitionEnd',function(){},false);
+      webkit下：
+          obj.addEventListener('transitionend',function(){},false);
+
+      ps: 每改变一个样式都会触发一遍 WebkitTransitionEnd 和  transitionend  例如 width 和 height
 
 
+      2. 变换
+      -webkit-transform：rotate(45deg);                旋转
+      -webkit-transform: skewX(45deg);                 斜切
+      -webkit-transform: skewY(45deg);                 y轴斜切
+      -webkit-transform: scaleX(0.5);                  缩放  (不加x是一起的)
+      -webkit-transform: scaleY(0.5);                  y轴缩放
+      -webkit-transform: translateX(100px);            从左往右移动100px
+      ps:如果写多条件  则后写的会先执行
+
+
+      围绕元素哪里进行旋转
+      -webkit-transform-origin：right /bottom / top / left;
+      -webkit-transform-origin: 0 0 ;
 
 
 
