@@ -74,8 +74,9 @@ final class Framecore{
        /**
         * 函数补充：
         *   is_dir()             判断目录是否存在
+        *   is_file();           判断文件是否存在
         *   mkdir();             创建目录
-        *   file_exists()        判断文件是否存在
+        *   file_exists()        判断文件或者目录是否存在，效率比较低
         */
    }
     
