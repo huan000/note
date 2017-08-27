@@ -33,7 +33,7 @@ final class Framecore{
         //定义核心类文件
         define('CORE_PATH',LIB_PATH.DIRECTORY_SEPARATOR.'Core');
         //定义加载函数的目录
-        define('Function_PATH',LIB_PATH.DIRECTORY_SEPARATOR.'Function');
+        define('FUNCTION_PATH',LIB_PATH.DIRECTORY_SEPARATOR.'Function');
 
         //定义项目的路径
         define('ROOT_PATH',dirname(FRAME_PATH));
@@ -52,7 +52,6 @@ final class Framecore{
         define('APP_PUBLIC_PATH',APP_VIEW_PATH.DIRECTORY_SEPARATOR.'Public');
         //测试区
     }
-
 
     /**
      * 创建应用目录
@@ -84,7 +83,16 @@ final class Framecore{
    /**
     *  载入系统的核心文件
     */
-    
+   public static function _import_file(){
+        $filearr = array(
+            FUNCTION_PATH.DIRECTORY_SEPARATOR.'function.php',     //加载函数文件
+            CORE_PATH.DIRECTORY_SEPARATOR.'Application.class.php'       //加载系统启动类
+        );
+        //加载系统必要的文件
+        foreach($filearr as $value){
+            require_once $value;
+        }
+   }
     
 
     
@@ -92,6 +100,5 @@ final class Framecore{
 
 
 Framecore::run();
-
-
+Application::run();
 
