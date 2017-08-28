@@ -126,6 +126,18 @@
  *    export PATH="$PATH:/root"                     在末尾添加一个路径
  *    which 命令                             显示这个命令的路径
  *
+ *
+ *    /etc/profile -- /etc/bashrc  -- ~.bash_profile -- .bashrc
+ *    /etc/profile 这个文件是全局的，当用户登录时该文件执行一次。  需要加载或者重启
+ *    /etc/bashrc  这个文件是全局的，当用户打开一个shell的时候都会执行这个文件，不需要重启
+ *    .bash_profile  这个文件是用户的，当用户登录shell时执行一次。需要加载或者重启
+ *    .bashrc        这个文件是用户的, 当用户每回登陆shell的时候都会加载，不需要重启
+ *    经测试/etc/profile 的优先级高于 /etc/bashrc
+ *
+ *
+ *
+ *
+ *
  *    grep -v "^&" file                      去除掉一个文件的空行
  *
  *    /var/log/message          系统的日志文件
