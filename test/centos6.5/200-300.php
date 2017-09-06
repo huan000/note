@@ -56,12 +56,22 @@
  *     -l              变更用户login时候的login_name
  *     -L              冻结用户密码  实质上就是修改/etc/shadow 在密码处加上！
  *     -U              解除冻结   本质同上
+ *     -a              append
+ *     -G              修改用户的附加组，和-a 仪器使用的话是追加附加组，而不是替换
  *
  *
  *     groupadd
  *     -g              指定组id
  *
  *     groupdel groupname     删除指定的用户组
+ *
+ *
+ *     gpasswd
+ *     gpasswd groupname      为一个用户组设置密码，就是知道该群组密码的人具有暂时可以切换该群组的功能
+ *     gpasswd -A username groupname   为一个组设定组管理员
+ *     gpasswd -a username groupname   把一个用户添加进一个组中
+ *     gpasswd -d username groupname   从一个组中删除一个用户
+ *     gpasswd -r groupname            修改一个组的组密码
  *
  *
  *     passwd  (修改当前用户的密码)
@@ -164,7 +174,7 @@
  *       scsi：   早期服务器使用接口，逐渐被淘汰了
  *       sata（sas）:    逐渐取代scsi接口的磁盘  通用sas串口   (sas 结合了scsi和sata的有点结合的升级版)
  *       光纤：   高端服务器使用的接口磁盘
- *      
+ *
  *     磁盘读取数据原理：
  *       先读一个磁道如果没有找到数据在读取同柱面的另一个磁道，如果还没有读取到则更改磁头
  *       位置开始寻道继续读取，写入数据也是同理
