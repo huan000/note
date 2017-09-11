@@ -231,7 +231,7 @@
  *
  *        partprobe / partx -a          通知内核分区表已经改变
  *        ll /dev/sd*                   查看分区
- *        cat /etc/proc/partitions      查看分区
+ *        cat /proc/partitions      查看分区
  *
  *
  *        parted 分区 (针对2t以上的硬盘)
@@ -246,7 +246,7 @@
  *
  *        创建swap 分区
  *        1. 创建一个普通分区
- *        2. mkswap /dev/sdb1                创建一个swap分区
+ *        2. mkswap /dev/sdb1                创建一个swap分区(格式化)
  *        3. free -m                         查看swap分区
  *        4. swapon /dev/sdb1                合并swap分区
  *        5. swapoff /dev/sdb1               关掉其中的swap分区
@@ -315,11 +315,30 @@
  *        umount  /dev/sdb1    解除挂载
  *        umount -lF           强制卸载
  *
+ *        ps: 解除挂在文件夹占用的问题
+ *        fuser                用来显示所有正在使用指定file，file system 或者socket的进程信息
+ *                         -u  显示使用该进程的用户
+ *                         -v  显示pid等详情信息
+ *                         -m  追加程序的流程
+ *                         -k  直接杀掉某个程序
+ *                         -i  杀掉程序的时候进行提示
+ *
+ *
+ *        结果：
+ *        USER        PID ACCESS COMMAND
+ *        root       3653 ..c.. (root)bash
+ *
+ *        ACCESS :  C  此程序在当前目录下
+ *                  e  当运行的时候可以执行
+ *                  f  打开文件，默认状态下被忽略
+ *                  F  打开文件等待被写入
+ *                  r  根目录
+ *                  m  共享库
+ *
  *
  *        开机自动挂载：
  *        vim /etc/fstab
  *        /dev/sdb2   /tmp    ext3    defaults   0(是否备份)    0(是否开机做磁盘检查)
- *
  *
  *        split，paste，sort，wc, dos2unix ,diff       等命令详解
  *
