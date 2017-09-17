@@ -56,12 +56,22 @@
  *     -l              变更用户login时候的login_name
  *     -L              冻结用户密码  实质上就是修改/etc/shadow 在密码处加上！
  *     -U              解除冻结   本质同上
+ *     -a              append
+ *     -G              修改用户的附加组，和-a 仪器使用的话是追加附加组，而不是替换
  *
  *
  *     groupadd
  *     -g              指定组id
  *
  *     groupdel groupname     删除指定的用户组
+ *
+ *
+ *     gpasswd
+ *     gpasswd groupname      为一个用户组设置密码，就是知道该群组密码的人具有暂时可以切换该群组的功能
+ *     gpasswd -A username groupname   为一个组设定组管理员
+ *     gpasswd -a username groupname   把一个用户添加进一个组中
+ *     gpasswd -d username groupname   从一个组中删除一个用户
+ *     gpasswd -r groupname            修改一个组的组密码
  *
  *
  *     passwd  (修改当前用户的密码)
@@ -164,7 +174,7 @@
  *       scsi：   早期服务器使用接口，逐渐被淘汰了
  *       sata（sas）:    逐渐取代scsi接口的磁盘  通用sas串口   (sas 结合了scsi和sata的有点结合的升级版)
  *       光纤：   高端服务器使用的接口磁盘
- *      
+ *
  *     磁盘读取数据原理：
  *       先读一个磁道如果没有找到数据在读取同柱面的另一个磁道，如果还没有读取到则更改磁头
  *       位置开始寻道继续读取，写入数据也是同理
@@ -202,7 +212,7 @@
  *        3.拓展分区有自己的分区表，因此拓展分区下面的逻辑分区可以有多个
  *        4.一个硬盘只能有一个拓展分区，一个拓展分区可以划分成多个逻辑分区
  *        5.逻辑分区的编号只能从5开始，即使只有一个主分区
- *
+ *                              
  *        scsi/sas/sata/usb 设备均以/dev/sd 开头。
  *
  *        fdisk工具的使用：
@@ -221,7 +231,7 @@
  *
  *        partprobe / partx -a          通知内核分区表已经改变
  *        ll /dev/sd*                   查看分区
- *        cat /etc/proc/partitions      查看分区
+ *        cat /proc/partitions      查看分区
  *
  *
  *        parted 分区 (针对2t以上的硬盘)
@@ -236,7 +246,7 @@
  *
  *        创建swap 分区
  *        1. 创建一个普通分区
- *        2. mkswap /dev/sdb1                创建一个swap分区
+ *        2. mkswap /dev/sdb1                创建一个swap分区(格式化)
  *        3. free -m                         查看swap分区
  *        4. swapon /dev/sdb1                合并swap分区
  *        5. swapoff /dev/sdb1               关掉其中的swap分区
@@ -305,11 +315,30 @@
  *        umount  /dev/sdb1    解除挂载
  *        umount -lF           强制卸载
  *
+ *        ps: 解除挂在文件夹占用的问题
+ *        fuser                用来显示所有正在使用指定file，file system 或者socket的进程信息
+ *                         -u  显示使用该进程的用户
+ *                         -v  显示pid等详情信息
+ *                         -m  追加程序的流程
+ *                         -k  直接杀掉某个程序
+ *                         -i  杀掉程序的时候进行提示
+ *
+ *
+ *        结果：
+ *        USER        PID ACCESS COMMAND
+ *        root       3653 ..c.. (root)bash
+ *
+ *        ACCESS :  C  此程序在当前目录下
+ *                  e  当运行的时候可以执行
+ *                  f  打开文件，默认状态下被忽略
+ *                  F  打开文件等待被写入
+ *                  r  根目录
+ *                  m  共享库
+ *
  *
  *        开机自动挂载：
  *        vim /etc/fstab
  *        /dev/sdb2   /tmp    ext3    defaults   0(是否备份)    0(是否开机做磁盘检查)
- *
  *
  *        split，paste，sort，wc, dos2unix ,diff       等命令详解
  *
