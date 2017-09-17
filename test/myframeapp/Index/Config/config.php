@@ -11,6 +11,4 @@
  */
 return array(
     'CODE_LEN'=>6,           //验证码长度
-
-
 );
