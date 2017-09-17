@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>操作失败</title>
+</head>
+<body>
+
+<div style="width: 90%;height: 100px;margin: 0 auto; border: 1px solid grey;background: lightgray;">
+    <div style="height: 50%;color: green; border-bottom: 1px solid grey;line-height: 50px;"> 操作失败</div>
+
+
+    <div style="height: 50%;line-height: 50px;"> <?php echo $msg;?> <span id="time" style="color: red;"><?php echo $time;?></span> </div>
+
+</div>
+
+<div style="width: 90%;height: 50px;margin: 0 auto; border: 1px solid grey;background: lightgray;">
+    <div><a href="<?php echo __ROOT__?>">跳回首页 </a></div>
+    <div><a href="javascript:<?php echo $url;?>;">立即跳转</a></div>
+</div>
+</body>
+</html>
+
+<script>
+    window.setTimeout("<?php echo $url;?>",<?php echo $time;?>*1000);
+</script>
+
+<script>
+    var time = document.getElementById('time').innerHTML;
+
+    function revTime(){
+        time --;
+        if(time>=0){
+            document.getElementById('time').innerHTML = time;
+        }
+    }
+    setInterval("revTime()",1000);
+</script>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>错误详情</title>
+</head>
+<body>
+
+   <div style="width: 90%;margin: 0 auto; text-align: center; background: mintcream; border: 1px solid skyblue;">
+        <div>错误信息 ：<?php echo $e['message'];?></div>
+        <pre>
+            <?php
+                if(is_string($e)){
+                    echo $e;
+                }else{
+                    foreach($e as $k => $v){
+                        echo "<span>$k<span>".":"."<span>$v<span>"."<br>";
+                    }
+                }
+            ?>
+        </pre>
+   </div>
+</body>
+</html>
