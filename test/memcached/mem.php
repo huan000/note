@@ -5,7 +5,7 @@
  * Date: 2016/8/24
  * Time: 16:11
  */
-
+//https://wenku.baidu.com/view/86032ad87f1922791688e81f.html
 //  win下启动memcahce
 //  进入mem目录     mem.exe -p(端口)  -d(安装成服务)   -m(占用内存)  -u(linux的用户)
 //  -f (内存区域的增长因子)
@@ -17,8 +17,8 @@
 
 //  添加一个数据
 //  add key flag(压缩标识)  expire(有效期)   length(长度)      value
-//  expire  0  不设置有效期(按照最长常量默认是30天)   从现在开始以后的秒数    设置时间戳(开团的提醒)
-
+//  expire  0  不设置有效期(按照最长常量默认是30天 2592000秒)   从现在开始以后的秒数    设置时间戳(开团的提醒)
+//  超过30天的 用time() + timestamp  时间戳的方式来进行显示
 
 //  获取一个数据
 //  get key
@@ -67,11 +67,66 @@
 
 
 
-//  分布式算法
+//  分布式算法 : 取模轮询
 //  采用取模轮询算法  如果一台服务器坏掉之后  数据命中率下降到  1/(n-1)
+//  缺点： 添加一台缓存服务器或者减少一台，代价巨大，会从新分配新值，使命中率降低
 
-//  一致性哈希算法************
+//  一致性哈希算法************  php分布算法待研究
 //  当一台服务器宕机之后，剩下的缓存会均匀的分配给集群中其他的服务器中
+//  原理: 按照常用的hash算法，将对应的key哈希到一个具有 2^32-1的 圆形闭环中。
+//        然后将主机名也进行hash 映射到这个闭环当中。 所有的key都映射到了这些主机hashkey之间。 key会放入离自己最近的主机hash中
+//        如果一台服务器宕机了,他的数据会顺时针转移到下一台服务器上，其他的服务器不受影响
+//        如果增加一台服务器，会从中间截断放入新的服务器上，也是只影响一小段的数据
+
+
+
+//  数据存储机制: 为memcache分配内存之后，memcache把所有的内存一次性分配出来，然后数据一点一点的写入，保证一个高的效率
+//  内存管理机制： slab
+//               早期的memcache采用mallo内存分配机制，即动态分配内存，这种方式会造成较大的内存碎片，
+//                slab: 提前将分配的大内存分割成若干个slab，大小默认是1m，在slab当中再建立大小相等的chunk，
+//                      最后再把数据对象存入到chunk中。 不同的slab里面的chunk是不同的，同一个slab里面的chunk是相同的
+//                      chunk的大小是根据调优增长因子进行调优的。 1.1中默认chunk大小是1b ，， 1.2中默认的大小是48b
+//                      启动时 -f 可以控制增长因子   默认是1.25 的增长
+//                      -n 参数指定chunk 的初始值。  默认是48字节
+//                      如果几个slab存满之后，会分配新的page 默认是1m 继续存储
+
+//  对象删除机制： LRU  如果内存满了，删除最近最少使用的数据
+//                     使用 -M 参数启动之后  不适用lru 删除数据 ，而是会爆出一个错误
+
+
+
+//  查找数据key机制： Hash
+
+
+//  session 入memcache
+//  修改php.ini： session.save_handler = memcahce;          session.save_path = "tcp://192.168.1.1"
+
+//  php图形化界面
+//  memadmin-1.0.12.tar.gz
+
+
+//  memcache 拓展的一致性hash算法实现
+//  php.ini 中： Memcache.allow_failover = 1
+//               Memcache.hash_strategy = consistent         Memcache.hash_function = crc32
+
+//  memcached 拓展的一致性hash算法的实现
+//$mem = new Memcached();
+//$mem->setOption(Memcached::OPT_HASH, Memcached::HASH_CRC);
+//$mem->setOption(Memcached::OPT_DISTRIBUTION, Memcached::DISTRIBUTION_CONSISTENT);
+//$servers = array(
+//    array('192.168.20.193', 11211, 33),
+//    array('192.168.20.194', 11211, 67)
+//);
+//$mem->addServers($servers);
+
+// 在存储数组和对象的时候会自动序列化。 如果序列话的是对象，则还原对象的时候必须要找到这个对象的类
+
+// 存入null的时候，get还会得到null
+// 存入false的时候. get会得到 '';
+// 存入8中值的时候会为false ： false ，0 ，0.0 ， ("0" ,"") , array(), 空的对象（没有任何成员的对象）， null ，空的xml
+// 存入一个资源类型 会转化成 0 存入
+
+
 
 //  缓存的雪崩现象
 //  不要把所有缓存生命周期建立的一样，因为同时失效之后会加大mysql的负载
@@ -89,6 +144,7 @@
 //  官方解决方案:永久数据和定时数据分开放
 
 
+//  缓存热点数据: 热点数据一般是由用户频繁更新的数据，例如淘宝卖家更改商品的价格,供很多的使用这来观看价格解决大流量的问题
 
 
 
