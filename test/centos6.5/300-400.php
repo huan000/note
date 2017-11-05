@@ -423,7 +423,7 @@
  *
  *                  3. 往服务器端进行推送
  *                   方法1
- *                   rsync -avz /tmp rsync_backup@192.xx.xx.xx::backup --password-file=/etc/password
+ *                   rsync -avz /tmp rsync_backup@192.xx.xx.xx::backup/ --password-file=/etc/password
  *                              本地推送目录  服务端用户@ip::服务端模块
  *                   方法2
  *                   rsync -avz /tmp rsync://rsync_backup@192.xx.xx.xx/backup/ --password-file=/etc/password
@@ -485,8 +485,348 @@
  *
  *
  *
+ *      // 搭建nfs 共享服务器
+ *             nfs 服务器端：
+ *            1. 软件1： nfs-utils     主程序
+ *            2. 软件2： rpcbind       记录端口的中介程序，必须先开启
+ *
+ *            安装软件
+ *            yum -y install nfs-utils rpcbind
+ *            检查安装
+ *            rpm -qa nfg-utils rpcbind
  *
  *
+ *
+ *       rpcbind：
+ *            启动rpcbind服务
+ *            /etc/init.d/rpcbind start
+ *
+ *            检查rpcbind服务端口
+ *            netstat -lnutp | grep rpc         占用111端口
+ *
+ *            查看rpcbind 中介记录的端口
+ *            rpcinfo -p  localhost
+ *
+ *      nfs：
+ *            启动nfs 服务
+ *            /etc/init.d/nfs start           占用主端口2049
+ *            nfs会自动创建用户：
+ *            id nfsnobody                    自动创建nfsnobody用户
+ *
+ *
+ *            nfs 配置(服务器端)：  配置文件: /var/lib/nfs/etab  配置了nfsnobody的默认信息
+ *            nfs配置文件: /etc/exports        默认是一个空文件
+ *            1. 创建共享的目录   mkdir /data -p
+ *            2. /data 目录的权限是通过 nfsnobody 用户来进行访问的 ，客户端链接过来的身份就是nfsnobody
+ *            3. 改变目录的属主和属组  chown -R nfsnobody.nfsnobody /data
+ *
+ *            文件:
+ *            # this is conf
+ *            /data localhost(ip)(rw,sync)       sync： 直接写入到磁盘 ，不写是写入到缓冲区
+ *                                               all_squash:  访问客户端共享目录的时候，不论登陆用户是谁都会变成nfsnobody
+ *                                                            (客户端必须创建uid相同的nfsnobody)
+ *                                                            /data 10.0.0.0/24(rw,sync,all_squash,anonuid=xxx,anongid=xxx)
+ *
+ *            配置文件平滑重启:
+ *            /etc/init.d/nfs reload     新的请求享受新的配置文件。旧的请求下次享受新的配置文件
+ *            检查配置文件是否重启：
+ *            showmount -e localhost
+ *
+ *            ps：是否可以访问服务端文件权限是由  /etc/exports  和 目录的权限共同决定的
+ *
+ *
+ *          nfs配置(客户端)
+ *            客户端需要有rpc服务，可以没有nfs服务。因为不需要提供共享。
+ *            1. 创建本地共享目录  mkdir -p /mnt
+ *            2. 检查是否可以挂载   showmount -e  xxx.xxx.xxx.xx
+ *            3. 挂载到远程共享目录中    mount -t nfs xxx.xxx.xxx.xx:/data /mnt
+ *            4. 设置开机自动启动  echo "mount -t nfs xxx.xxx.xxx.xx:/data /mnt" >> /etc/rc.local
+ *               ps： 不可以放在fstab之中进行挂载。 因为是网络挂载。 启动fstab的时候网络还没有开启
+ *               chkconfig netfs on  启动该服务之后，可以在网络之前挂载了就
+ *            5. 查看客户端的挂载情况：  cat /proc/mounts    防止df -h 延迟
+ *
+ * ***************************** 实例搭建 和  发送邮件没有学
+ *
+ *          客户端挂载的详细参数：
+ *              -o     挂载的时候加上-o
+ *              fg     前台挂载 (default)
+ *              bg     后台挂载不会影响到前台的操作  (建议)
+ *              soft   如果timeout延时后停止。(不建议)
+ *              hard   会持续尝试进行挂载。 (建议)
+ *              intr   防止一直挂载锁死
+ *              rsize  一次读多少k
+ *              wsize  一次写多少k
+ *              suid | nosuid    挂载后文件不可以使用suid权限
+ *              exec | noexec    是否可执行
+ *              atime | noatime  是否记录访问时间。如果不记录访问事件会提高性能
+ *
+ *
+ *
+ *
+ *
+ *      ps: 对于 rpm/yum安装的软件
+ *           service nfs start 这种启动方式和 /etc/init.d/nfs start 的启动方式是一样的
+ *          删除一个目录七天之前的文件
+ *           find /backup/ -type f -mtime -7 \(-name "*.log" -o -name "*.tar.gz"\)
+ *
+ *          linux 发送邮件：
+ *           mail -s "标题" 邮件地址 < 文件路径
+ *           echo "正文" | mail -s "标题" 邮件地址
+ *
+ *
+ *
+ *      inotify 简介:
+ *          是一个强大的，细粒度的，异步的文件系统事件监控机制。 linux 内核从2.6.13
+ *          加入了对inotify的支持。
+ *
+ *          inotify 是在客户端上配置的
+ *          1. 查看版本信息是否支持inotify
+ *                   uname -r
+ *             查看 ll /proc/sys/fs/inotify       如果目录存在即为支持
+ *
+ *          2. 安装软件
+ *                  yum install inotify-tools -y
+ *
+ *          3. 安装后一共产生两个核心命令
+ *                  witch inotifywait             监控某个目录变化的命令
+ *                  which inotifywatch            收集被监视的文件系统做统计的
+ *
+ *              inotifywait 参数:
+ *                  -m   监听
+ *                  -d   后台运行
+ *                  -r   递归进行所有的监听
+ *                  -e   事件
+ *
+ *              监控脚本：
+ *                  #！/bin/bash
+ *                  Path=/data
+ *                  Ip=xxx.xx.xx.xx
+ *                  /usr/bin/inotifywait -mrq --format '%w%f' -e close_write,delete $Path \
+ *                  |while read file
+ *                   do
+ *                      cd $Path &&\
+ *                      rsync -az ./ --delete rsync_backup@Ip::nfsbackup --password-file=/etc/rsync.password
+ *                   done
+ *
+ *
+ ************************************410 - 452 没看
+ *
+ *                web服务基础：
+ *                  用户访问网站流程:
+ *                    1. 输入一个域名 www.baidu.com 会首先找本地的host和缓存。
+ *                    2. 会把一个域名找到对应的ip来访问。如果host找到了ip就访问ip。 没有就通过dns做解析
+ *
+ *                命令：
+ *                    dig +trace www.baidu.com       查看一个地址和ip的映射路径
+ *
+ *                    http 1.1 简介:
+ *                    建立了持久链接，也就是说一个tcp链接上可以建立多个http链接，不用每次都断开tcp链接了
+ *
+ *
+ *
+ *                网站浏览度量：
+ *                  IP：每日有多少个ip进行访问。一个局域网内通过一个公网ip进行访问算一个
+ *                      相同的ip 每天只算一次访问
+ *                      度量方法：  1.通过js，记录用户的ip进行保存
+ *                                 2.通过第三方的统计工具。GA(谷歌统计工具)
+ *
+ *                  PV: 每一个页面被访问一次就记录一个pv，与ip无关
+ *
+ *                  uv: 每一个设备终端一天访问一次就是一个uv
+ *
+ *
+ *                代理相关软件:
+ *                     lvs , haproxy , nginx , apache
+ *                高可用相关软件:
+ *                     keepalived, heartbeat
+ *                网站缓存相关(cdn使用的软件，在服务器前端缓存):
+ *                     squid,nginx,varnish
+ *
+ *                nginx:
+ *                      nginx软件是一个实现http协议的实现软件产品化
+ *                      nginx是一个web软件。同时还是一个反向代理负载均衡，和缓存软件。
+ *
+ *
+ *                nginx实战安装:
+ *                      1.首先安装pcre库。 官方站点是http://www.pcre.org/
+ *                        安装pcre库是为了使nginx支持具备uri重写的功能Rewrite模块
+ *                        安装:
+ *                            国内镜像地址:http://mirrors.aliyun.com/help/centos
+ *                            yum install pcre pcre-devel -y
+ *                            yum install openssl openssl-devel -y    支持https
+ *                            yum -y install gcc                      安装编译工具
+                              yum -y install gcc-c++
+ *
+ *                      2.下载 nginx 源码包
+ *                        wget -q http://nginx.org/download/nginx-1.8.1.zip   -q 不进行提示
+ *                                                                            -O 将下载的文件重新命名
+ *                            tar zxvf  nginx    解压
+ *                      3.安装
+ *                        ./configure --user=WWW --group=WWW --with-http_ssl_module
+ *                        --prefix=/usr/local/nginx1.8
+ *
+ *                        nginx -t  检查配置文件语法是否正确
+ *                        nginx -V  查看版本以及编译时候的配置
+ *                        nginx/logs/error.log     web软件的错误日志
+ *
+ *                      4.添加用户
+ *                        useradd WWW -s /sbin/nologin -M
+ *
+ *                      5.检查安装是否成功
+ *                        netstat -lnutp | grep 80     检查端口
+ *                        lsof -i :80                  检查端口监听
+ *                        ps -ef |grep nginx           检查服务
+ *
+ *                      6.平滑重启加载配置文件  nginx -s reload
+ *
+ *                  ps:
+ *                  rpm -qa 根据指定的安装包查看是否安装
+ *                  rpm -qf 根据指定的命令查看这个命令的安装包
+ *                  rpl -ql 查看一个包里有那些文件
+ *
+ *          nginx 结合燕十八：
+ *               十八第二课： 信号控制
+ *                  关闭进程： kill -INT 26652(主进程号) == ./nginx -s stop  -INT 当前正在处理中的进程处理完才杀掉
+ *                            kill -9 ..     强制杀死所有进程
+ *                            kill -QUIT == ./nginx -s quit  等进程完毕才进行关闭
+ *                            kill -HUP  == ./nginx -s reload  (主进程不重启)  先开启新的线程读取新配置文件，旧的等结束时候在关闭
+ *                            kill -USR1 == ./nginx -s reopen   不重启 重新加载配置文件中的日志文件
+ *                            kill -USR2    不重启 进行平滑的升级
+ *                            kill -WINCH   配合usr2 进行优雅的关闭旧的版本的进程
+ *
+ *
+ *              nginx 配置文件:
+ *                   全局区域
+ *                 worker_processes 1;    工作的子进程有几个  一般设置为 cpu数 * 核心数
+ *
+ *
+ *
+ *                   event区域 ：配置进程的链接特性
+ *                 event{
+                        worker_connections 1024;     一个进程可以产生多少个链接
+ *
+ *                  }
+ *
+ *
+ *
+ *                   http区域 : 主要配置的就是http相关的信息
+ *                 http{
+ *                      server{                                     多个server如果没有匹配则指向第一个
+                            listen 80;                              监听的端口
+ *                          server_name localhost;                  监听的域名(客户端请求头中的地址)
+ *                          server_name 192.xxx.xx.xx'              根据ip配置的虚拟主机
+ *                      }
+ *                  }
+ *
+ *
+ *              nginx的相关变量：
+ *                  /conf/fastcgi_param
+ *
+ *
+ *              日志管理:
+ *                  可以出现在所有的server虚拟主机标签中。
+ *                  access_log logs/access.log main;
+ *                  main : 格式信息定义在http段当中。
+ *
+ *              切割日志：
+ *                  LOGPATH=/usr/local/nginx/logs/access.log        日志地址
+ *                  BATHPATH=/data                                  备份地址
+ *                  bak=$BATHPATH/$(date -d yesterday +%Y%m&d).new.access.log   新的日志文件
+ *                  mv $LOGPATH $BAK;
+ *                  touch $LOGPATH;
+ *                  KILL -USR1 'cat /usr/local/nginx/logs/nginx.pid';
+ *                     **  加入crontab
+ *
+ *               location 匹配模式:
+ *                  location = patt {}             精准匹配 优先级最高
+ *                  ps:  如果 location = /{
+                        index index.html
+ *                  }
+ *                  则会根据index.html 这个uri进行继续的location匹配，而不是在自身匹配完成
+ *
+ *                  location ~                     正则匹配
+ *                  location ^                     禁止正则匹配
+ *                  location patt                  普通匹配
+ *                  ps:  两个相同的普通匹配， 哪个匹配的长哪个优先级更高
+ *
+ *
+ *          nginx rewrite 重写:
+ *                  写入方位: 可以在server 和 location 段中写
+ *                  if 语法格式:
+ *                  if 空格 (条件){ 重写模式 }
+ *                     重写模式:    '='     来判断相等，用于字符串的比较
+ *                                  '~'     用正则来判断，此处的正则区分大小写
+ *                                  '~*'    用正则来判断，不区分大小写
+ *                                  -f -d -e    判断是否为文件，目录 ，是否存在
+ *
+ *                  return 语法 : return 403;  返回403信息
+ *                  rewrite 语法:  重新转发
+ *                  break   语法: 跳出循环
+ *                  set    语法: 设置变量
+ *
+ *              例:    if ($remote_addr = xxx.xxx.xx.xx) { return 403;}
+ *              例；   if ($http_user_agent ~ MSIE) { rewrite ^.*$ /ie.html break;}
+ *              例:    if (!-e $document_root$fastcgi_script_name) { rewrite ^.*$ /404.html break;}
+ *                  观察日志， 日志中显示访问路径依然是 GET /wrong.html HTTP/1.1
+ *                       服务器内部的rewrite 和 302 跳转不一样， 跳转的话会改变url 从新发起
+ *                       请求，而rewrite 的请求没有变化，指示重新找到一个文件
+ *
+ *
+ *             nginx编译php *****************:
+ *                  apache 一般是把php当做自己的一个模块来启动的。
+ *                  而nginx则是把http请求变量 转发给PHP进程。 即php独立进程。
+ *                  这种通信方式叫做fastcgi运行方式
+ *
+ *
+ *             nginx 压缩 gzip:
+ *                  原理 :
+ *                    1.浏览器通过请求头中的声明，声明可以接受压缩
+ *                     Accept-Encoding：gzip,deflate,sdch
+ *                    2.服务器回应，把内容用gzip方式压缩，发送给浏览器
+ *                    3.浏览器解码  gzip，  接受解码后内容
+ *
+ *              gzip配置的常用参数:
+ *                   上下文 : http , server ,location ,if
+ *
+ *                    gzip on|off;     是否开启gzip
+ *                    gzip_buffers 32 4k|8K    缓冲(压缩缓存在内存中，缓存几块就开始输出?每块多大?)
+ *                    gzip_comp_level [1-9]   推荐6 ，级别越高压缩的越小，但是性能消耗越大
+ *                    gzip_disable      正则，什么不进行压缩
+ *                    gzip_min_length 200    开始压缩的最小字节，再小就不进行压缩了
+ *                    gzip_http_version 1.0|1.1   http协议的版本
+ *                    gzip_proxied             设置请求代理服务器如何缓存
+ *                    gzip_types text/plain    对哪些类型的文件进行压缩
+ *                    gzip_vary on|off         是否开启gzip压缩标志
+ *              ps:图片和mp3这种的没有必要压缩， 因为压缩比比较小，而且还会耗费cpu资源
+ *                  /nginx/conf/mime.types     显示所有的类型
+ *
+ *              如果压缩了:响应头会显示 Content-Type：text/html;  text/html 默认会进行压缩
+ *
+ *
+ *           nginx exprie：
+ *               上下文: 在location里面或这if段里面写
+ *                       expires 30s;
+ *                       expries 20m;
+ *                       expries 20h;
+ *                       expries 20d;
+ *
+ *              ps：如果没有开启expires，并且文件没有改变，会返回304modifed.
+ *                  但是还是会请求服务器。  原理是：响应头会显示etag(内容的签名，内容变了则变)
+ *                  和last_modified_since 2个标签值
+ *                  浏览器下次请求时，头信息要发送这两个标签，如果文件没有发送变化，则直接返回304头信息
+ *                  并且不反回内容
+ *
+ *                  如果开启了expires，响应头会有expires信息。
+ *
+ *              ps: php编译成apache模块  --with-apxs2=/usr/local/httpd/bin/apxs
+ *                  php编译成nginx模块 --enable-fpm
+ *
+ *
+ *            proxy 反向代理：
+ *                  location ~ \.php$ {
+                        proxy_pass http://xxx.xxx.xxx.xx:8080
+ *
+ *                  }
  *
  *
  *
