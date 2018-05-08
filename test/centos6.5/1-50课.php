@@ -135,7 +135,7 @@
  *  1.  find /data -type f -name "oldboy.text" -exec rm {} \;
  *    {}    表示前面查找到的结果   \;  转义分号
  *    ps: 等于前面的内容都在括号里
- *
+ * 
  *
  *  2.  find /data -type f -name "*.txt" |xargs rm -f
  *      通过管道把查到的内容显示在最后

@@ -253,6 +253,9 @@
  *      inode是用来存放这些属性信息的 (也就是ls -l的结果)，还包含和block的关联信息 ，但是
  *      唯独不包括文件名字
  *
+ *      根据inode查找一个文件： find . -inum 324123
+ *
+ *
  *      dumpe2fs /dev/sda1 |grep -i "inode size"            查看grub分区的大小
  *      dumpe2fs /dev/sda1 |grep -i "inode count"  block    查看inode的总大小
  *
