@@ -5,6 +5,9 @@
  *        /etc/crontab
  *      用户的任务计划表：
  *        /var/spool/cron
+ *      用户允许访问和拒绝的列表
+ *        /etc/cron.allow   /etc/cron.deny
+ *
  *
  *      特殊符号：
  *      分 时 日 月 周
