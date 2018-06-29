@@ -45,3 +45,10 @@
  *
  *  ps: 可以把配置文件和命令统一安装到一个文件中
  */
+
+
+/**
+ *  linux 编译安装mysql 6.5
+ * https://www.cnblogs.com/xiongpq/p/3384681.html
+ *
+ */
